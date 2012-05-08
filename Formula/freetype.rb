@@ -7,8 +7,8 @@ class Freetype < Formula
 
   def options
     [["--native",
-      "Enable native TrueType hinting, which is potentially covered by various "
-      "Apple patents.\nSee: http://www.freetype.org/patents.html"]
+      "Enable native TrueType hinting, which is potentially covered by " \
+      "various Apple patents.\nSee: http://www.freetype.org/patents.html"]
     ]
   end
 
