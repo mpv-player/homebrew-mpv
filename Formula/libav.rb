@@ -1,5 +1,9 @@
 require 'formula'
 
+def avplay?
+  ARGV.include? '--with-avplay'
+end
+
 class Libav <Formula
   head 'git://git.libav.org/libav.git', :using => :git
   homepage 'http://www.libav.org/'
@@ -25,7 +29,7 @@ class Libav <Formula
             "--enable-version3",
             "--enable-nonfree",
             "--enable-libfreetype"]
-    args << "--disable-ffplay" unless ffplay?
+    args << "--disable-avplay" unless avplay?
 
     # For 32-bit compilation under gcc 4.2, see:
     # http://trac.macports.org/ticket/20938#comment:22
