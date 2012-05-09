@@ -1,6 +1,6 @@
 require 'formula'
 
-class Mplayer2 <Formula
+class Mplayer2 < Formula
   head 'git://git.mplayer2.org/mplayer2.git', :using => :git
   homepage 'http://mplayer2.org'
 
@@ -22,7 +22,7 @@ class Mplayer2 <Formula
     system "make install"
 
     # change the binary name to mplayer2
-    FileUtils.mv(bin + 'mplayer', bin + 'mplayer2')
+    mv bin + 'mplayer', bin + 'mplayer2'
   end
 
   private
