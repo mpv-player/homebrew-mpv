@@ -7,7 +7,7 @@ class Mplayer2 <Formula
   depends_on 'pkg-config' => :build
   depends_on 'libbs2b' => :build
   depends_on 'libass' => :build
-  depends_on 'pigoz/mplayer2/freetype' => :build
+  depends_on 'homebrew/dupes/freetype' => :build
   depends_on 'pigoz/mplayer2/libav' => :build
 
   def install
