@@ -3,6 +3,7 @@ module Mplayer2Base
     base.class_eval do
       homepage 'http://mplayer2.org'
 
+      depends_on :x11
       depends_on 'pkg-config' => :build
       depends_on 'libbs2b' => :build
       depends_on 'libass' => :build
