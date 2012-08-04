@@ -7,6 +7,7 @@ module Mplayer2Base
       depends_on 'libbs2b' => :build
       depends_on 'libass' => :build
       depends_on 'homebrew/dupes/freetype' => :build
+      depends_on 'fontconfig' => :build
       depends_on 'pigoz/mplayer2/libav' => :build
       depends_on 'python3' => :build
     end
