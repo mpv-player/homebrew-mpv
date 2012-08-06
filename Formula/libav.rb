@@ -15,7 +15,6 @@ class Libav <Formula
   depends_on 'faac' => :optional
   depends_on 'lame' => :optional
   depends_on 'rtmpdump' => :optional
-  depends_on 'theora' => :optional
   depends_on 'libvorbis' => :optional
   depends_on 'libogg' => :optional
   depends_on 'libvpx' => :optional
@@ -46,7 +45,6 @@ class Libav <Formula
     args << "--enable-libfaac" if Formula.factory('faac').installed?
     args << "--enable-libmp3lame" if Formula.factory('lame').installed?
     args << "--enable-librtmp" if Formula.factory('rtmpdump').installed?
-    args << "--enable-libtheora" if Formula.factory('theora').installed?
     args << "--enable-libvorbis" if Formula.factory('libvorbis').installed?
     args << "--enable-libvpx" if Formula.factory('libvpx').installed?
     args << "--enable-libxvid" if Formula.factory('xvid').installed?
