@@ -15,6 +15,7 @@ module Mplayer2Base
   end
 
   def install
+    ENV.O1 if ENV.compiler == :llvm
     args = ["--prefix=#{prefix}",
             "--cc=#{ENV.cc}",
             "--enable-macosx-bundle",
