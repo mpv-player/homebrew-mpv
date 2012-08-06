@@ -5,12 +5,14 @@ module Mplayer2Base
 
       depends_on :x11
       depends_on 'pkg-config' => :build
+      depends_on 'python3' => :build
+
+      depends_on 'pigoz/mplayer2/libav' => :build
       depends_on 'libbs2b' => :build
       depends_on 'libass' => :build
-      depends_on 'homebrew/dupes/freetype' => :build
-      depends_on 'fontconfig' => :build
-      depends_on 'pigoz/mplayer2/libav' => :build
-      depends_on 'python3' => :build
+      depends_on 'mpg123' => :build
+      depends_on 'libmad' => :build
+      depends_on 'libdvdnav' => :build
     end
   end
 
