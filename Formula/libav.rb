@@ -9,6 +9,7 @@ class Libav <Formula
     :ref => '4f935a7b89e44fc0fd05c340c17bddcb6a407cb'
   homepage 'http://www.libav.org/'
 
+  depends_on :x11
   depends_on 'pkg-config' => :build
   depends_on 'yasm' => :build
 
