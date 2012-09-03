@@ -1,5 +1,5 @@
 require 'formula'
-require File.join(File.dirname(__FILE__), 'mplayer2-base.rb')
+require File.join(File.dirname(__FILE__), 'mixins', 'mplayer2-base.rb')
 
 class Mplayer2 < Formula
   include Mplayer2Base

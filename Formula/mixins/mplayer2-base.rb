@@ -1,3 +1,7 @@
+def libav?
+  ARGV.include? '--with-libav'
+end
+
 module Mplayer2Base
   def self.included(base)
     base.class_eval do
@@ -7,13 +11,33 @@ module Mplayer2Base
       depends_on 'pkg-config' => :build
       depends_on 'python3' => :build
 
-      depends_on 'pigoz/mplayer2/libav' => :build
       depends_on 'libbs2b' => :build
       depends_on 'libass' => :build
       depends_on 'mpg123' => :build
       depends_on 'libmad' => :build
       depends_on 'libdvdnav' => :build
+
+      if libav?
+        depends_on 'pigoz/mplayer2/libav' => :build
+      else
+        depends_on 'ffmpeg' => :build
+      end
     end
+  end
+
+  unless libav?
+    def caveats; <<-EOS.undent
+      mplayer2 is designed to work best against HEAD versions of ffmpeg/libav.
+      If you are noticing problems please try to install the HEAD version of
+      ffmpeg with: `brew install --HEAD ffmpeg`
+      EOS
+    end
+  end
+
+  def options
+    [
+      ['--with-libav', 'Build against libav instead of ffmpeg.']
+    ]
   end
 
   def install
