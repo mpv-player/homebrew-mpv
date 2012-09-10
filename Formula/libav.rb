@@ -24,6 +24,9 @@ class Libav <Formula
   depends_on 'opencore-amr' => :optional
   depends_on 'libass' => :optional
 
+  conflicts_with 'ffmpeg',
+    :because => 'libav and ffmpeg install the same libraries'
+
   def options
     [
       ["--with-avplay", "Build avplay."]
