@@ -13,16 +13,16 @@ class Mplayer2 < Formula
   depends_on 'pkg-config' => :build
   depends_on 'python3' => :build
 
-  depends_on 'libbs2b' => :build
-  depends_on 'libass' => :build
-  depends_on 'mpg123' => :build
-  depends_on 'libmad' => :build
-  depends_on 'libdvdnav' => :build
+  depends_on 'libbs2b'
+  depends_on 'libass'
+  depends_on 'mpg123'
+  depends_on 'libmad'
+  depends_on 'libdvdnav'
 
   if libav?
-    depends_on 'pigoz/mplayer2/libav' => :build
+    depends_on 'pigoz/mplayer2/libav'
   else
-    depends_on 'ffmpeg' => :build
+    depends_on 'ffmpeg'
   end
 
   unless libav?
