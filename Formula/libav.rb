@@ -1,10 +1,10 @@
 require 'formula'
 
 def avplay?
-  ARGV.include? '--with-avplay'
+  build.include? 'with-avplay'
 end
 
-class Libav <Formula
+class Libav < Formula
   head 'git://git.libav.org/libav.git', :using => :git,
     :ref => '4f935a7b89e44fc0fd05c340c17bddcb6a407cb'
   homepage 'http://www.libav.org/'
@@ -27,16 +27,11 @@ class Libav <Formula
   conflicts_with 'ffmpeg',
     :because => 'libav and ffmpeg install the same libraries'
 
-  def options
-    [
-      ["--with-avplay", "Build avplay."]
-    ]
-  end
+  option 'with-avplay', 'Build avplay'
 
   depends_on 'sdl' if avplay?
 
   def install
-    ENV.x11
     args = ["--prefix=#{prefix}",
             "--cc=#{ENV.cc}",
             "--disable-debug",
