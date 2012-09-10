@@ -52,7 +52,8 @@ class Mplayer2 < Formula
     system "./configure", *args
     system "make install"
 
-    mv bin + 'mplayer', bin + binary_name
+    mv bin/'mplayer', bin/binary_name
+    mv man1/'mplayer.1', man1/(binary_name + '.1')
   end
 
   private
