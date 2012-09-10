@@ -9,7 +9,6 @@ class Libav < Formula
     :ref => '4f935a7b89e44fc0fd05c340c17bddcb6a407cb'
   homepage 'http://www.libav.org/'
 
-  depends_on :x11
   depends_on 'pkg-config' => :build
   depends_on 'yasm' => :build
 
@@ -28,7 +27,9 @@ class Libav < Formula
     :because => 'libav and ffmpeg install the same libraries'
 
   option 'with-avplay', 'Build avplay'
+  option 'with-freetype', 'Enable FreeType'
 
+  depends_on :freetype if build.include? 'with-freetype'
   depends_on 'sdl' if avplay?
 
   def install
