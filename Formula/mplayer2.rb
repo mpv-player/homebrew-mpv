@@ -16,7 +16,7 @@ class Mplayer2 < Formula
   depends_on 'libbs2b'
   depends_on 'libass'
   depends_on 'mpg123'
-  depends_on 'libmad'
+  depends_on 'mad'
   depends_on 'libdvdnav'
 
   if libav?
