@@ -1,7 +1,7 @@
 require 'formula'
 
 def libav?
-  ARGV.include? '--with-libav'
+  build.include? 'with-libav'
 end
 
 class Mplayer2 < Formula
@@ -34,11 +34,7 @@ class Mplayer2 < Formula
     end
   end
 
-  def options
-    [
-      ['--with-libav', 'Build against libav instead of ffmpeg.']
-    ]
-  end
+  option 'with-libav', 'Build against libav instead of ffmpeg.'
 
   def install
     ENV.O1 if ENV.compiler == :llvm
