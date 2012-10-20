@@ -5,8 +5,7 @@ def avplay?
 end
 
 class Libav < Formula
-  head 'git://git.libav.org/libav.git', :using => :git,
-    :ref => '4f935a7b89e44fc0fd05c340c17bddcb6a407cb'
+  head 'git://git.libav.org/libav.git', :using => :git
   homepage 'http://www.libav.org/'
 
   depends_on 'pkg-config' => :build
