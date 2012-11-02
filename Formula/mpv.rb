@@ -4,15 +4,31 @@ def libav?
   build.include? 'with-libav'
 end
 
-class Mplayer2 < Formula
-  head 'git://git.mplayer2.org/mplayer2.git', :using => :git,
-    :branch => 'unstable'
+class DocutilsInstalled < Requirement
+  def message; <<-EOS.undent
+    Docutils is required to install.
 
-  homepage 'http://mplayer2.org'
+    You can install this with:
+      sudo easy_install docutils
+    EOS
+  end
+
+  def satisfied?
+    which('rst2man') || which('rst2man.py')
+  end
+
+  def fatal?
+    true
+  end
+end
+
+class Mpv < Formula
+  head 'git@github.com:mpv-player/mpv.git', :using => :git
+  homepage 'https://github.com/mpv-player/mpv'
 
   depends_on :x11
   depends_on 'pkg-config' => :build
-  depends_on 'python3' => :build
+  depends_on DocutilsInstalled.new => :build
 
   depends_on 'libbs2b'
   depends_on 'libass'
@@ -21,14 +37,16 @@ class Mplayer2 < Formula
   depends_on 'libdvdnav'
 
   if libav?
-    depends_on 'pigoz/mplayer2/libav'
+    depends_on 'mpv-player/mpv/libav'
   else
     depends_on 'ffmpeg'
   end
 
+  env :std # looks like :superenv doesn't pick up Dockutils path
+
   unless libav?
     def caveats; <<-EOS.undent
-      mplayer2 is designed to work best with HEAD versions of ffmpeg/libav.
+      mpv is designed to work better with HEAD versions of ffmpeg/libav.
       If you are noticing problems please try to install the HEAD version of
       ffmpeg with: `brew install --HEAD ffmpeg`
       EOS
@@ -39,6 +57,7 @@ class Mplayer2 < Formula
 
   def install
     ENV.O1 if ENV.compiler == :llvm
+
     args = ["--prefix=#{prefix}",
             "--cc=#{ENV.cc}",
             "--enable-macosx-bundle",
@@ -48,9 +67,6 @@ class Mplayer2 < Formula
     generate_version
     system "./configure", *args
     system "make install"
-
-    mv bin/'mplayer', bin/binary_name
-    mv man1/'mplayer.1', man1/(binary_name + '.1')
   end
 
   private
@@ -65,9 +81,5 @@ class Mplayer2 < Formula
 
   def git_cache
     @downloader.cached_location
-  end
-
-  def binary_name
-    'mplayer2'
   end
 end

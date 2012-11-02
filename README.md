@@ -1,35 +1,27 @@
 homebrew-mplayer2
 =================
 
-A centralized repository for mplayer2 related brews.
+A centralized repository for `mpv` related brews.
 
 Usage
 -----
 
  *  make sure you have Homebrew 0.9
- *  `brew tap pigoz/mplayer2`
+ *  `brew tap mpv-player/mpv`
 
 To install with FFmpeg (default):
- *  `brew install --HEAD pigoz/mplayer2/mplayer2`
+ *  `brew install --HEAD mpv`
 
-If you want to use libav instead of FFmpeg:
- *  `brew install --HEAD pigoz/mplayer2/libav`: since brew will error out on
-    mplayer2's installation because libav is a head only formula. Just
-    install it manually.
- *  `brew install --HEAD pigoz/mplayer2/mplayer2 --with-libav`
+If you want to use libav instead of FFmpeg (which is default):
+ *  `brew install --HEAD mpv-player/mpv/libav`: since brew will error out on
+    mpv's installation because libav is a head only formula. Just install it
+    manually.
+ *  `brew install --HEAD mpv --with-libav`
 
 To update the tapped formulae from this repository use `brew update`.
-
-Why is FFmpeg default?
-----------------------
-
-mplayer2 is currently not compatible with audio using planar sample formats
-which libav uses: this results in broken ALAC support. FFmpeg also has a Video
-Decode Acceleration (VDA) decoder that mplayer2 can use for accelerating h264
-decoding.
 
 Available formulas
 ------------------
 
- *  libav: official libav HEAD
- *  mplayer2: official mplayer2 HEAD
+ *  libav: builds libav HEAD
+ *  mpv: builds mpv HEAD
