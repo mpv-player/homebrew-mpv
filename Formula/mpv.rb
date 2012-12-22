@@ -4,6 +4,10 @@ def libav?
   build.include? 'with-libav'
 end
 
+def bundle?
+  not build.include? 'without-bundle'
+end
+
 class DocutilsInstalled < Requirement
   def message; <<-EOS.undent
     Docutils is required to install.
@@ -44,27 +48,34 @@ class Mpv < Formula
 
   env :std # looks like :superenv doesn't pick up Dockutils path
 
-  unless libav?
-    def caveats; <<-EOS.undent
+  def caveats
+    cvts = <<-EOS.undent
       mpv is designed to work better with HEAD versions of ffmpeg/libav.
       If you are noticing problems please try to install the HEAD version of
       ffmpeg with: `brew install --HEAD ffmpeg`
       EOS
-    end
+    cvts << bundle_caveats if bundle?
+    cvts
   end
 
-  option 'with-libav', 'Build against libav instead of ffmpeg.'
+  option 'with-libav',     'Build against libav instead of ffmpeg.'
+  option 'without-bundle', 'Do not create a Mac OSX Application Bundle.'
 
   def install
     args = ["--prefix=#{prefix}",
-            "--cc=#{ENV.cc}",
-            "--enable-macosx-bundle",
-            "--enable-macosx-finder",
-            "--enable-apple-remote"]
+            "--cc=#{ENV.cc}"]
+
+    args << "--enable-macosx-bundle" if bundle?
+    args << "--enable-macosx-finder" if bundle?
 
     generate_version
     system "./configure", *args
     system "make install"
+
+    if bundle?
+      system "make osxbundle"
+      prefix.install "mpv.app"
+    end
   end
 
   private
@@ -79,5 +90,17 @@ class Mpv < Formula
 
   def git_cache
     @downloader.cached_location
+  end
+
+  def bundle_caveats; <<-EOS.undent
+
+      mpv.app installed to:
+        #{prefix}
+
+      To link the application to a normal Mac OS X location:
+          brew linkapps
+      or:
+          ln -s #{prefix}/mpv.app /Applications
+      EOS
   end
 end
