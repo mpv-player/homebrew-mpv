@@ -27,7 +27,7 @@ class DocutilsInstalled < Requirement
 end
 
 class Mpv < Formula
-  head 'git://github.com/mpv-player/mpv.git', :using => :git
+  head 'https://github.com/mpv-player/mpv.git', :using => :git
   homepage 'https://github.com/mpv-player/mpv'
 
   depends_on 'pkg-config' => :build
