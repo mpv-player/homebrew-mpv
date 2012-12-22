@@ -56,8 +56,6 @@ class Mpv < Formula
   option 'with-libav', 'Build against libav instead of ffmpeg.'
 
   def install
-    ENV.O1 if ENV.compiler == :llvm
-
     args = ["--prefix=#{prefix}",
             "--cc=#{ENV.cc}",
             "--enable-macosx-bundle",
