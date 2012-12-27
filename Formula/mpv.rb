@@ -10,6 +10,8 @@ end
 
 class DocutilsInstalled < Requirement
   fatal true
+  env :userpaths
+
   def message; <<-EOS.undent
     Docutils is required to install.
 
@@ -62,8 +64,6 @@ class Mpv < Formula
   else
     depends_on 'ffmpeg'
   end
-
-  env :std # looks like :superenv doesn't pick up Dockutils path
 
   def caveats
     cvts = <<-EOS.undent
