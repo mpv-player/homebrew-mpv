@@ -9,6 +9,7 @@ def bundle?
 end
 
 class DocutilsInstalled < Requirement
+  fatal true
   def message; <<-EOS.undent
     Docutils is required to install.
 
@@ -20,9 +21,25 @@ class DocutilsInstalled < Requirement
   def satisfied?
     which('rst2man') || which('rst2man.py')
   end
+end
 
-  def fatal?
-    true
+class GitVersionWriter
+  def initialize(downloader)
+    @downloader = downloader
+  end
+
+  def write
+    ohai "Generating VERSION file from Homebrew's git cache"
+    File.open('VERSION', 'w') {|f| f.write(git_revision) }
+  end
+
+  private
+  def git_revision
+    `cd #{git_cache} && git describe --match "v[0-9]*" --always`.strip
+  end
+
+  def git_cache
+    @downloader.cached_location
   end
 end
 
@@ -68,7 +85,7 @@ class Mpv < Formula
     args << "--enable-macosx-bundle" if bundle?
     args << "--enable-macosx-finder" if bundle?
 
-    generate_version
+    GitVersionWriter.new(@downloader).write
     system "./configure", *args
     system "make install"
 
@@ -79,19 +96,6 @@ class Mpv < Formula
   end
 
   private
-  def generate_version
-    ohai "Generating VERSION from the Homebrew's git cache"
-    File.open('VERSION', 'w') {|f| f.write(git_revision) }
-  end
-
-  def git_revision
-    `cd #{git_cache} && git describe --match "v[0-9]*" --always`.strip
-  end
-
-  def git_cache
-    @downloader.cached_location
-  end
-
   def bundle_caveats; <<-EOS.undent
 
       mpv.app installed to:
