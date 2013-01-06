@@ -1,5 +1,5 @@
-homebrew-mplayer2
-=================
+homebrew-mpv
+============
 
 A centralized repository for `mpv` related brews.
 
