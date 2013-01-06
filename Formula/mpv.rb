@@ -82,7 +82,7 @@ class Mpv < Formula
   end
 
   option 'with-libav',     'Build against libav instead of ffmpeg.'
-  option 'with-x11',       'Build against libav instead of ffmpeg.'
+  option 'with-x11',       'Build with X11 backend support.'
   option 'without-bundle', 'Do not create a Mac OSX Application Bundle.'
 
   def install
