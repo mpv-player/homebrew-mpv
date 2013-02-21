@@ -20,7 +20,8 @@ class DocutilsInstalled < Requirement
     Docutils is required to install.
 
     You can install this with:
-      sudo easy_install docutils
+      [sudo] easy_install pip
+      pip install docutils
     EOS
   end
 
