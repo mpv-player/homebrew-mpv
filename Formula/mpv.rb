@@ -62,7 +62,7 @@ class Mpv < Formula
   depends_on 'mpg123'
   depends_on 'libdvdread'
   depends_on 'libquvi'
-  depends_on 'lcms2'
+  depends_on 'little-cms2'
 
   if libav?
     depends_on 'mpv-player/mpv/libav'
