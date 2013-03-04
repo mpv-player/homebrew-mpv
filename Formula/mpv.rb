@@ -64,6 +64,9 @@ class Mpv < Formula
   depends_on 'libquvi'
   depends_on 'little-cms2'
 
+  depends_on 'libpng'
+  depends_on 'jpeg'
+
   if libav?
     depends_on 'mpv-player/mpv/libav'
   else
