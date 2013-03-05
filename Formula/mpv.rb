@@ -63,8 +63,6 @@ class Mpv < Formula
   depends_on 'libdvdread'
   depends_on 'libquvi'
   depends_on 'little-cms2'
-
-  depends_on 'libpng'
   depends_on 'jpeg'
 
   if libav?
