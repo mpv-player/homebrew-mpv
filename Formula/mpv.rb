@@ -12,6 +12,10 @@ def bundle?
   not build.include? 'without-bundle'
 end
 
+def jack?
+  build.include? 'with-jack'
+end
+
 class DocutilsInstalled < Requirement
   fatal true
   env :userpaths
@@ -85,6 +89,7 @@ class Mpv < Formula
 
   option 'with-libav',     'Build against libav instead of ffmpeg.'
   option 'with-x11',       'Build with X11 backend support.'
+  option 'with-jack',      'Build with support for JackOSX (jackosx.com).'
   option 'without-bundle', 'Do not create a Mac OSX Application Bundle.'
 
   def install
@@ -93,6 +98,7 @@ class Mpv < Formula
 
     args << "--enable-macosx-bundle" if bundle?
     args << "--enable-macosx-finder" if bundle?
+    args << "--enable-jack" if jack?
     args << "--disable-x11" unless x11?
 
     GitVersionWriter.new(@downloader).write
