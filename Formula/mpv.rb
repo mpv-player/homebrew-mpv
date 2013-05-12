@@ -99,7 +99,6 @@ class Mpv < Formula
             "--cc=#{ENV.cc}"]
 
     args << "--enable-macosx-bundle" if bundle?
-    args << "--enable-macosx-finder" if bundle?
     args << "--enable-jack" if jack?
     args << "--disable-x11" unless x11?
 
