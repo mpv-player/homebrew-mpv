@@ -70,6 +70,7 @@ class Mpv < Formula
   depends_on 'jpeg'
   depends_on 'libbluray'
   depends_on 'libaacs'
+  depends_on 'sdl'
 
   if libav?
     depends_on 'mpv-player/mpv/libav'
