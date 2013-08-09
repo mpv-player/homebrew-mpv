@@ -16,6 +16,18 @@ def jack?
   build.include? 'with-jack'
 end
 
+class JackOSX < Requirement
+  fatal true
+
+  env do
+    ENV.append 'LDFLAGS', "-ljack"
+  end
+
+  def satisfied?
+    which('jackd')
+  end
+end
+
 class DocutilsInstalled < Requirement
   fatal true
   env :userpaths
@@ -70,6 +82,7 @@ class Mpv < Formula
   depends_on 'jpeg'
   depends_on 'libbluray'
   depends_on 'libaacs'
+  depends_on JackOSX.new if jack?
 
   if libav?
     depends_on 'mpv-player/mpv/libav'
