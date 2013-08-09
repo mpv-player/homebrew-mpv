@@ -10,6 +10,7 @@ class Libav < Formula
 
   depends_on 'pkg-config' => :build
   depends_on 'yasm' => :build
+  depends_on :freetype => build
 
   depends_on 'x264' => :optional
   depends_on 'faac' => :optional
