@@ -4,6 +4,10 @@ def avplay?
   build.include? 'with-avplay'
 end
 
+def freetype?
+  build.include? 'with-freetype'
+end
+
 class Libav < Formula
   head 'git://git.libav.org/libav.git', :using => :git
   homepage 'http://www.libav.org/'
@@ -30,7 +34,7 @@ class Libav < Formula
   option 'with-avplay', 'Build avplay'
   option 'with-freetype', 'Enable FreeType'
 
-  depends_on :freetype if build.include? 'with-freetype'
+  depends_on :freetype if freetype?
   depends_on 'sdl' if avplay?
 
   def install
@@ -44,6 +48,7 @@ class Libav < Formula
             # uses sem_timedwait which is not available on OSX
             "--disable-indev=jack"]
 
+    args << "--enable-libfreetype" if freetype?
     args << "--enable-libx264"
     args << "--enable-libfaac" if Formula.factory('faac').installed?
     args << "--enable-libmp3lame" if Formula.factory('lame').installed?
