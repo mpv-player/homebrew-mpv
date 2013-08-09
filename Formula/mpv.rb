@@ -96,6 +96,7 @@ class Mpv < Formula
 
   def install
     args = ["--prefix=#{prefix}",
+            "--disable-sdl",
             "--cc=#{ENV.cc}"]
 
     args << "--enable-macosx-bundle" if bundle?
