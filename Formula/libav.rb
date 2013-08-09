@@ -41,7 +41,8 @@ class Libav < Formula
             "--enable-gpl",
             "--enable-version3",
             "--enable-nonfree",
-            "--enable-libfreetype"]
+            # uses sem_timedwait which is not available on OSX
+            "--disable-indev=jack"]
 
     args << "--enable-libx264"
     args << "--enable-libfaac" if Formula.factory('faac').installed?
