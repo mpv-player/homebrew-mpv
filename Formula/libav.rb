@@ -7,6 +7,8 @@ end
 class Libav < Formula
   head 'git://git.libav.org/libav.git', :using => :git
   homepage 'http://www.libav.org/'
+  url 'http://libav.org/releases/libav-9.8.tar.gz'
+  sha1 '45e612028f4ebe6ed8b24434e78d54e7c1145fd3'
 
   depends_on 'pkg-config' => :build
   depends_on 'yasm' => :build
