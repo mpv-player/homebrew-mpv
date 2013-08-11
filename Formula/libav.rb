@@ -49,7 +49,7 @@ class Libav < Formula
             "--disable-indev=jack"]
 
     args << "--enable-libfreetype" if freetype?
-    args << "--enable-libx264"
+    args << "--enable-libx264" if Formula.factory('x264').installed?
     args << "--enable-libfaac" if Formula.factory('faac').installed?
     args << "--enable-libmp3lame" if Formula.factory('lame').installed?
     args << "--enable-librtmp" if Formula.factory('rtmpdump').installed?
