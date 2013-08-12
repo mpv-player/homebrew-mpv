@@ -1,21 +1,5 @@
 require 'formula'
 
-def libav?
-  build.include? 'with-libav'
-end
-
-def x11?
-  build.include? 'with-x11'
-end
-
-def bundle?
-  not build.include? 'without-bundle'
-end
-
-def jack?
-  build.include? 'with-jack'
-end
-
 class JackOSX < Requirement
   fatal true
 
@@ -73,24 +57,27 @@ class Mpv < Formula
   depends_on 'pkg-config' => :build
   depends_on DocutilsInstalled.new => :build
 
-  depends_on 'libbs2b'
-  depends_on 'libass'
-  depends_on 'mpg123'
-  depends_on 'libdvdread'
-  depends_on 'libquvi'
-  depends_on 'little-cms2'
-  depends_on 'jpeg'
-  depends_on 'libbluray'
-  depends_on 'libaacs'
-  depends_on JackOSX.new if jack?
+  depends_on 'libass'      => :recommended
+  depends_on 'mpg123'      => :recommended
+  depends_on 'jpeg'        => :recommended
 
-  if libav?
+  depends_on 'libcaca'     => :optional
+  depends_on 'libbs2b'     => :optional
+  depends_on 'libquvi'     => :optional
+  depends_on 'libdvdread'  => :optional
+  depends_on 'little-cms2' => :optional
+  depends_on JackOSX.new   => :optional
+
+  depends_on 'libbluray' if build.with? 'bluray-support'
+  depends_on 'libaacs'   if build.with? 'bluray-support'
+
+  if build.with? 'libav'
     depends_on 'mpv-player/mpv/libav'
   else
     depends_on 'ffmpeg'
   end
 
-  depends_on :x11 if x11?
+  depends_on :x11 => :optional
 
   def caveats
     cvts = <<-EOS.undent
@@ -98,29 +85,33 @@ class Mpv < Formula
       If you are noticing problems please try to install the HEAD version of
       ffmpeg with: `brew install --HEAD ffmpeg`
       EOS
-    cvts << bundle_caveats if bundle?
+    cvts << bundle_caveats if build.with? 'bundle'
     cvts
   end
 
-  option 'with-libav',     'Build against libav instead of ffmpeg.'
-  option 'with-x11',       'Build with X11 backend support.'
-  option 'with-jack',      'Build with support for JackOSX (jackosx.com).'
-  option 'without-bundle', 'Do not create a Mac OSX Application Bundle.'
+  option 'with-libav',          'Build against libav instead of ffmpeg.'
+  option 'with-libbs2b',        'Build with libbs2b support (stereophonic-to-binaural filter).'
+  option 'with-libcaca',        'Build with libcaca support (ASCII-art video output).'
+  option 'with-libquvi',        'Build with libquvi support (watch videos from YouTube and other websites).'
+  option 'with-x11',            'Build with X11 windowing support.'
+  option 'with-jack',           'Build with support for JackOSX (jackosx.com).'
+  option 'with-little-cms2',    'Build with little-cms2 support (Color management for OpenGL video outputs).'
+  option 'with-bluray-support', 'Build with Bluray support (libbluray + libaacs).'
+  option 'without-bundle',      'Do not create a Mac OSX Application Bundle.'
 
   def install
     args = ["--prefix=#{prefix}",
             "--disable-sdl",
             "--cc=#{ENV.cc}"]
 
-    args << "--enable-macosx-bundle" if bundle?
-    args << "--enable-jack" if jack?
-    args << "--disable-x11" unless x11?
+    args << "--enable-macosx-bundle" if build.with? 'bundle'
+    args << "--disable-x11"          unless build.with? 'x11'
 
     GitVersionWriter.new(@downloader).write
     system "./configure", *args
     system "make install"
 
-    if bundle?
+    if build.with? 'bundle'
       system "make osxbundle"
       prefix.install "mpv.app"
     end
