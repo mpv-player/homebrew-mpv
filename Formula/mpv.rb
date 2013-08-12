@@ -66,7 +66,7 @@ class Mpv < Formula
   depends_on 'libquvi'     => :optional
   depends_on 'libdvdread'  => :optional
   depends_on 'little-cms2' => :optional
-  depends_on JackOSX.new   => :optional
+  depends_on JackOSX.new   => :optional if build.with? 'jack'
 
   depends_on 'libbluray' if build.with? 'bluray-support'
   depends_on 'libaacs'   if build.with? 'bluray-support'
