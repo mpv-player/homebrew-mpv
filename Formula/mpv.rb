@@ -104,7 +104,6 @@ class Mpv < Formula
             "--disable-sdl",
             "--cc=#{ENV.cc}"]
 
-    args << "--enable-macosx-bundle" if build.with? 'bundle'
     args << "--disable-x11"          unless build.with? 'x11'
 
     GitVersionWriter.new(@downloader).write
