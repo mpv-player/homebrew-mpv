@@ -108,7 +108,8 @@ class Mpv < Formula
 
     args << "--disable-x11" unless build.with? 'x11'
 
-    GitVersionWriter.new(@downloader).write
+    GitVersionWriter.new(@downloader).write if build.head?
+
     system "./configure", *args
     system "make install"
 
