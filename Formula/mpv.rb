@@ -106,7 +106,7 @@ class Mpv < Formula
             "--disable-sdl",
             "--cc=#{ENV.cc}"]
 
-    args << "--disable-x11"          unless build.with? 'x11'
+    args << "--disable-x11" unless build.with? 'x11'
 
     GitVersionWriter.new(@downloader).write
     system "./configure", *args
