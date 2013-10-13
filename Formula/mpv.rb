@@ -59,7 +59,7 @@ class Mpv < Formula
   depends_on 'pkg-config' => :build
   depends_on DocutilsInstalled.new => :build
 
-  depends_on 'libass'      => :recommended
+  depends_on 'libass'      => :recommended unless build.without? 'libass'
   depends_on 'mpg123'      => :recommended
   depends_on 'jpeg'        => :recommended
 
@@ -107,6 +107,7 @@ class Mpv < Formula
             "--cc=#{ENV.cc}"]
 
     args << "--disable-x11" unless build.with? 'x11'
+    args << "--disable-libass" if build.without? 'libass'
 
     GitVersionWriter.new(@downloader).write if build.head?
 
