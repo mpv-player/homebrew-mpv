@@ -59,7 +59,7 @@ class Mpv < Formula
   depends_on 'pkg-config' => :build
   depends_on DocutilsInstalled.new => :build
 
-  depends_on 'libass'      => :recommended unless build.without? 'libass'
+  depends_on 'libass'      => :recommended
   depends_on 'mpg123'      => :recommended
   depends_on 'jpeg'        => :recommended
 
@@ -91,6 +91,7 @@ class Mpv < Formula
     cvts
   end
 
+  option 'without-libass',      'Build without libass.'
   option 'with-libav',          'Build against libav instead of ffmpeg.'
   option 'with-libbs2b',        'Build with libbs2b support (stereophonic-to-binaural filter).'
   option 'with-libcaca',        'Build with libcaca support (ASCII-art video output).'
