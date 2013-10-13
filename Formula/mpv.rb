@@ -107,6 +107,7 @@ class Mpv < Formula
             "--cc=#{ENV.cc}"]
 
     args << "--disable-x11" unless build.with? 'x11'
+    args << "--disable-libass" if build.without? 'libass'
 
     GitVersionWriter.new(@downloader).write if build.head?
 
