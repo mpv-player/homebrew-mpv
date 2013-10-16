@@ -103,8 +103,13 @@ class Mpv < Formula
   option 'with-lua',            'Build with lua support (Scripting, On-Screen Controller).'
   option 'with-bluray-support', 'Build with Bluray support (libbluray + libaacs).'
   option 'with-bundle',         'Create a Mac OSX Application Bundle alongside the CLI version of mpv.'
+  option 'with-dist-bundle',    'Create a Mac OSX Application Bundle alongside the CLI version of mpv (distributable version).'
 
   def install
+    if build.with? 'bundle' and build.with? 'dist-bundle'
+      raise '--with-bundle, --with-dist-bundle: make up your mind and choose one'
+    end
+
     args = ["--prefix=#{prefix}",
             "--disable-sdl",
             "--cc=#{ENV.cc}"]
@@ -117,8 +122,13 @@ class Mpv < Formula
     system "./configure", *args
     system "make install"
 
-    if build.with? 'bundle'
+    if build.with? 'dist-bundle'
       system "make osxbundle"
+      prefix.install "mpv.app"
+    end
+
+    if build.with? 'bundle'
+      system "make osxbundle-skip-deps"
       prefix.install "mpv.app"
     end
   end
