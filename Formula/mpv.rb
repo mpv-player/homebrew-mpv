@@ -102,7 +102,7 @@ class Mpv < Formula
   option 'with-little-cms2',    'Build with little-cms2 support (Color management for OpenGL video outputs).'
   option 'with-lua',            'Build with lua support (Scripting, On-Screen Controller).'
   option 'with-bluray-support', 'Build with Bluray support (libbluray + libaacs).'
-  option 'without-bundle',      'Do not create a Mac OSX Application Bundle.'
+  option 'with-bundle',         'Create a Mac OSX Application Bundle alongside the CLI version of mpv.'
 
   def install
     args = ["--prefix=#{prefix}",
