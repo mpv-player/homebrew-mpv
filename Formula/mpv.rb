@@ -68,6 +68,7 @@ class Mpv < Formula
   depends_on 'libquvi'     => :optional
   depends_on 'libdvdread'  => :optional
   depends_on 'little-cms2' => :optional
+  depends_on 'lua'         => :optional
   depends_on JackOSX.new   => :optional if build.with? 'jack'
 
   depends_on 'libbluray' if build.with? 'bluray-support'
@@ -99,6 +100,7 @@ class Mpv < Formula
   option 'with-x11',            'Build with X11 windowing support.'
   option 'with-jack',           'Build with support for JackOSX (jackosx.com).'
   option 'with-little-cms2',    'Build with little-cms2 support (Color management for OpenGL video outputs).'
+  option 'with-lua',            'Build with lua support (Scripting, On-Screen Controller).'
   option 'with-bluray-support', 'Build with Bluray support (libbluray + libaacs).'
   option 'without-bundle',      'Do not create a Mac OSX Application Bundle.'
 
