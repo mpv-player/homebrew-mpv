@@ -75,7 +75,7 @@ class Mpv < Formula
   depends_on 'libaacs'   if build.with? 'bluray-support'
 
   if build.with? 'libav'
-    depends_on 'mpv-player/mpv/libav'
+    depends_on 'libav'
   else
     depends_on 'ffmpeg'
   end
