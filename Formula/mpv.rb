@@ -83,13 +83,11 @@ class Mpv < Formula
   depends_on :x11 => :optional
 
   def caveats
-    cvts = <<-EOS.undent
-      mpv is designed to work better with HEAD versions of ffmpeg/libav.
-      If you are noticing problems please try to install the HEAD version of
-      ffmpeg with: `brew install --HEAD ffmpeg`
-      EOS
-    cvts << bundle_caveats if build.with? 'bundle'
-    cvts
+    if build.with? 'bundle'
+      bundle_caveats
+    else
+      super
+    end
   end
 
   option 'without-libass',      'Build without libass.'
