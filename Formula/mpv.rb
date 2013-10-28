@@ -71,8 +71,10 @@ class Mpv < Formula
   depends_on 'lua'         => :optional
   depends_on JackOSX.new   => :optional if build.with? 'jack'
 
-  depends_on 'libbluray' if build.with? 'bluray-support'
-  depends_on 'libaacs'   if build.with? 'bluray-support'
+  if build.include? 'with-bluray-support'
+    depends_on 'libbluray'
+    depends_on 'libaacs'
+  end
 
   if build.with? 'libav'
     depends_on 'libav'
