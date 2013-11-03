@@ -51,8 +51,8 @@ class GitVersionWriter
 end
 
 class Mpv < Formula
-  url 'https://github.com/mpv-player/mpv/archive/v0.2.1.tar.gz'
-  sha1 'f96e389b336297914ccfd2a786ae580b0b664236'
+  url 'https://github.com/mpv-player/mpv/archive/v0.2.2.tar.gz'
+  sha1 '3a86a5fe84ef69d61a3681e975b75406a536df89'
   head 'https://github.com/mpv-player/mpv.git', :using => :git
   homepage 'https://github.com/mpv-player/mpv'
 
