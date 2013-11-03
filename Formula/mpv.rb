@@ -96,7 +96,7 @@ class Mpv < Formula
   depends_on JackOSX.new if build.with? 'jackosx'
 
   def caveats
-    if build.with? 'bundle'
+    if build.with?('bundle') || build.with?('dist-bundle')
       bundle_caveats
     else
       super
