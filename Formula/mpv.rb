@@ -4,7 +4,8 @@ class JackOSX < Requirement
   fatal true
 
   env do
-    ENV.append 'LDFLAGS', "-ljack"
+    ENV.append 'CFLAGS',  '-I/usr/local/include'
+    ENV.append 'LDFLAGS', '-L/usr/local/lib -ljack -framework CoreAudio -framework CoreServices -framework AudioUnit'
   end
 
   def satisfied?
@@ -88,10 +89,11 @@ class Mpv < Formula
   depends_on 'libdvdread'  => :optional
   depends_on 'little-cms2' => :optional
   depends_on 'lua'         => :optional
-  depends_on JackOSX.new   => :optional
   depends_on 'libbluray'   => :optional
   depends_on 'libaacs'     => :optional
   depends_on :x11          => :optional
+
+  depends_on JackOSX.new if build.with? 'jackosx'
 
   def caveats
     if build.with? 'bundle'
@@ -111,6 +113,7 @@ class Mpv < Formula
             "--cc=#{ENV.cc}"]
 
     args << "--disable-x11" unless build.with? 'x11'
+    args << "--enable-jack" if build.with? 'jackosx'
 
     GitVersionWriter.new(@downloader).write if build.head?
 
