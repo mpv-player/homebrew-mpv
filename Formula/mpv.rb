@@ -42,7 +42,7 @@ class GitVersionWriter
 
   private
   def git_revision
-    `cd #{git_cache} && git describe --match "v[0-9]*" --always`.strip
+    `cd #{git_cache} && ./version.sh --print`.strip
   end
 
   def git_cache
