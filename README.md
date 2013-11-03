@@ -7,6 +7,7 @@ Usage
 -----
 
  *  `brew tap mpv-player/mpv`
+ *  `brew install --HEAD libass-ct`
  *  `brew install mpv`
 
 The build is by default very minimal, but many dependencies can be added.
@@ -20,3 +21,4 @@ Available formulas
 ------------------
 
  *  mpv: builds mpv stable releases or git HEAD
+ *  libass-ct: builds libass with experimental CoreText support
