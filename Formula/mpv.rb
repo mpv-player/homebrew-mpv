@@ -59,7 +59,26 @@ class Mpv < Formula
   depends_on 'pkg-config' => :build
   depends_on DocutilsInstalled.new => :build
 
-  depends_on 'libass'      => :recommended
+  option 'with-official-libass', 'Use official version of libass (instead of experimental CoreText based branch)'
+  option 'with-libav',           'Build against libav instead of ffmpeg.'
+  option 'with-bundle',          'Create a Mac OSX Application Bundle alongside the CLI version of mpv.'
+  option 'with-dist-bundle',     'Create a Mac OSX Application Bundle alongside the CLI version of mpv (distributable version).'
+  option 'with-jackosx',         'Build with jackosx support.'
+
+  if build.with? 'official-libass'
+    depends_on 'libass'
+  else
+    depends_on 'mpv-player/mpv/libass-ct'
+    # for testing
+    # depends_on File.expand_path('../libass-ct', __FILE__)
+  end
+
+  if build.with? 'libav'
+    depends_on 'libav'
+  else
+    depends_on 'ffmpeg'
+  end
+
   depends_on 'mpg123'      => :recommended
   depends_on 'jpeg'        => :recommended
 
@@ -69,20 +88,10 @@ class Mpv < Formula
   depends_on 'libdvdread'  => :optional
   depends_on 'little-cms2' => :optional
   depends_on 'lua'         => :optional
-  depends_on JackOSX.new   => :optional if build.with? 'jack'
-
-  if build.include? 'with-bluray-support'
-    depends_on 'libbluray'
-    depends_on 'libaacs'
-  end
-
-  if build.with? 'libav'
-    depends_on 'libav'
-  else
-    depends_on 'ffmpeg'
-  end
-
-  depends_on :x11 => :optional
+  depends_on JackOSX.new   => :optional
+  depends_on 'libbluray'   => :optional
+  depends_on 'libaacs'     => :optional
+  depends_on :x11          => :optional
 
   def caveats
     if build.with? 'bundle'
@@ -91,19 +100,6 @@ class Mpv < Formula
       super
     end
   end
-
-  option 'without-libass',      'Build without libass.'
-  option 'with-libav',          'Build against libav instead of ffmpeg.'
-  option 'with-libbs2b',        'Build with libbs2b support (stereophonic-to-binaural filter).'
-  option 'with-libcaca',        'Build with libcaca support (ASCII-art video output).'
-  option 'with-libquvi',        'Build with libquvi support (watch videos from YouTube and other websites).'
-  option 'with-x11',            'Build with X11 windowing support.'
-  option 'with-jack',           'Build with support for JackOSX (jackosx.com).'
-  option 'with-little-cms2',    'Build with little-cms2 support (Color management for OpenGL video outputs).'
-  option 'with-lua',            'Build with lua support (Scripting, On-Screen Controller).'
-  option 'with-bluray-support', 'Build with Bluray support (libbluray + libaacs).'
-  option 'with-bundle',         'Create a Mac OSX Application Bundle alongside the CLI version of mpv.'
-  option 'with-dist-bundle',    'Create a Mac OSX Application Bundle alongside the CLI version of mpv (distributable version).'
 
   def install
     if build.with? 'bundle' and build.with? 'dist-bundle'
@@ -115,7 +111,6 @@ class Mpv < Formula
             "--cc=#{ENV.cc}"]
 
     args << "--disable-x11" unless build.with? 'x11'
-    args << "--disable-libass" if build.without? 'libass'
 
     GitVersionWriter.new(@downloader).write if build.head?
 
