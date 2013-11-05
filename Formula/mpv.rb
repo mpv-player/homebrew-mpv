@@ -97,9 +97,9 @@ class Mpv < Formula
 
   def caveats
     if build.with?('bundle') || build.with?('dist-bundle')
-      bundle_caveats
+      ffmpeg_caveats + bundle_caveats
     else
-      super
+      ffmpeg_caveats
     end
   end
 
@@ -132,6 +132,17 @@ class Mpv < Formula
   end
 
   private
+  def ffmpeg_caveats; <<-EOS.undent
+      mpv requires an up to date version of ffmpeg to have complete features.
+      Unfortunately the homebrew team wants to keep support for shitty software
+      that depends on ffmpeg oldstable (1.2). This prevents mpv from activating
+      some features like VDA and many others.
+
+      If this is important to you I suggest you complain to the homebrew team
+      or install ffmpeg with `brew install --HEAD ffmpeg`.
+    EOS
+  end
+
   def bundle_caveats; <<-EOS.undent
 
       mpv.app installed to:
