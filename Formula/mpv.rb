@@ -52,9 +52,9 @@ class GitVersionWriter
 end
 
 class Mpv < Formula
-  url 'https://github.com/mpv-player/mpv/archive/v0.2.2.tar.gz'
-  sha1 '3a86a5fe84ef69d61a3681e975b75406a536df89'
-  head 'https://github.com/mpv-player/mpv.git', :using => :git
+  url 'https://github.com/mpv-player/mpv/archive/v0.2.3.tar.gz'
+  sha1 'b8ad4fdde916cbb00ebc1aa7371b30ccf48a777c'
+  head 'https://github.com/mpv-player/mpv.git'
   homepage 'https://github.com/mpv-player/mpv'
 
   depends_on 'pkg-config' => :build
@@ -70,8 +70,6 @@ class Mpv < Formula
     depends_on 'libass'
   else
     depends_on 'mpv-player/mpv/libass-ct'
-    # for testing
-    # depends_on File.expand_path('../libass-ct', __FILE__)
   end
 
   if build.with? 'libav'
