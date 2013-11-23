@@ -7,9 +7,9 @@ class Waf < Formula
 
   depends_on :python
 
-  # keg_only <<-TEXT.undent
-  #   This is only needed for mpv. No need to expose it outside the Cellar.
-  # TEXT
+  keg_only <<-TEXT.undent
+    This is only needed for mpv. No need to expose it outside the Cellar.
+   TEXT
 
   def install
     bin.install 'waf-1.7.13' => 'waf'
