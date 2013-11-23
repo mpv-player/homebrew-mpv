@@ -57,7 +57,7 @@ class Mpv < Formula
   head 'https://github.com/mpv-player/mpv.git'
   homepage 'https://github.com/mpv-player/mpv'
 
-  depends_on 'waf' => :build
+  depends_on 'mpv-player/mpv/waf' => :build
   depends_on 'pkg-config' => :build
   depends_on DocutilsInstalled.new => :build
 
