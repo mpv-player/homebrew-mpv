@@ -57,13 +57,13 @@ class Mpv < Formula
   head 'https://github.com/mpv-player/mpv.git'
   homepage 'https://github.com/mpv-player/mpv'
 
+  depends_on 'waf' => :build
   depends_on 'pkg-config' => :build
   depends_on DocutilsInstalled.new => :build
 
   option 'with-official-libass', 'Use official version of libass (instead of experimental CoreText based branch)'
   option 'with-libav',           'Build against libav instead of ffmpeg.'
   option 'with-bundle',          'Create a Mac OSX Application Bundle alongside the CLI version of mpv.'
-  option 'with-dist-bundle',     'Create a Mac OSX Application Bundle alongside the CLI version of mpv (distributable version).'
   option 'with-jackosx',         'Build with jackosx support.'
 
   if build.with? 'official-libass'
@@ -94,7 +94,7 @@ class Mpv < Formula
   depends_on JackOSX.new if build.with? 'jackosx'
 
   def caveats
-    if build.with?('bundle') || build.with?('dist-bundle')
+    if build.with?('bundle')
       ffmpeg_caveats + bundle_caveats
     else
       ffmpeg_caveats
@@ -102,28 +102,22 @@ class Mpv < Formula
   end
 
   def install
-    if build.with? 'bundle' and build.with? 'dist-bundle'
-      raise '--with-bundle, --with-dist-bundle: make up your mind and choose one'
-    end
-
-    args = ["--prefix=#{prefix}",
-            "--disable-sdl",
-            "--cc=#{ENV.cc}"]
-
+    args = ["--prefix=#{prefix}", "--disable-sdl"]
     args << "--disable-x11" unless build.with? 'x11'
     args << "--enable-jack" if build.with? 'jackosx'
+    args << "--enable-macosx-bundle" if build.with? 'bundle' and build.head?
 
     GitVersionWriter.new(@downloader).write if build.head?
 
-    system "./configure", *args
-    system "make install"
-
-    if build.with? 'dist-bundle'
-      system "make osxbundle"
-      prefix.install "mpv.app"
+    if build.head?
+      system "waf", "configure", *args
+      system "waf", "install"
+    else
+      system "./configure", *args
+      system "make install"
     end
 
-    if build.with? 'bundle'
+    if build.with? 'bundle' and not build.head?
       system "make osxbundle-skip-deps"
       prefix.install "mpv.app"
     end
