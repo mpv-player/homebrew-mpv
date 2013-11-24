@@ -6,9 +6,9 @@ A centralized repository for `mpv` related brews.
 Usage
 -----
 
-    brew tap mpv-player/mpv`
-    brew install --HEAD mpv-player/mpv/libass-ct`
-    brew install mpv`
+    brew tap mpv-player/mpv
+    brew install --HEAD mpv-player/mpv/libass-ct
+    brew install mpv
 
 The build is by default very minimal, but many dependencies can be added.
 To get all the available build options:
