@@ -135,7 +135,20 @@ class Mpv < Formula
     EOS
   end
 
-  def bundle_caveats; <<-EOS.undent
+  def bundle_caveats
+    if build.head?
+      <<-EOS.undent
+
+      mpv.app installed to:
+        #{prefix}
+
+      To link the application to a normal Mac OS X location:
+          brew linkapps
+      or:
+          ln -s #{prefix}/bin/mpv.app /Applications
+      EOS
+    else
+      <<-EOS.undent
 
       mpv.app installed to:
         #{prefix}
@@ -145,5 +158,6 @@ class Mpv < Formula
       or:
           ln -s #{prefix}/mpv.app /Applications
       EOS
+    end
   end
 end
