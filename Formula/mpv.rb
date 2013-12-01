@@ -52,8 +52,8 @@ class GitVersionWriter
 end
 
 class Mpv < Formula
-  url 'https://github.com/mpv-player/mpv/archive/v0.2.3.tar.gz'
-  sha1 'b8ad4fdde916cbb00ebc1aa7371b30ccf48a777c'
+  url 'https://github.com/mpv-player/mpv/archive/v0.2.4.tar.gz'
+  sha1 'c2c1ccc86d010d4cb371eecb13b838ad3a7cfb23'
   head 'https://github.com/mpv-player/mpv.git'
   homepage 'https://github.com/mpv-player/mpv'
 
@@ -145,7 +145,7 @@ class Mpv < Formula
       To link the application to a normal Mac OS X location:
           brew linkapps
       or:
-          ln -s #{prefix}/bin/mpv.app /Applications
+          ln -s #{bin}/mpv.app /Applications
       EOS
     else
       <<-EOS.undent
