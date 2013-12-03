@@ -13,24 +13,6 @@ class JackOSX < Requirement
   end
 end
 
-class DocutilsInstalled < Requirement
-  fatal true
-  env :userpaths
-
-  def message; <<-EOS.undent
-    Docutils is required to install.
-
-    You can install this with:
-      [sudo] easy_install pip
-      pip install docutils
-    EOS
-  end
-
-  def satisfied?
-    which('rst2man') || which('rst2man.py')
-  end
-end
-
 class GitVersionWriter
   def initialize(downloader)
     @downloader = downloader
@@ -57,6 +39,7 @@ class Mpv < Formula
   head 'https://github.com/mpv-player/mpv.git'
   homepage 'https://github.com/mpv-player/mpv'
 
+  depends_on 'docutils' => :python
   depends_on 'mpv-player/mpv/waf' => :build
   depends_on 'pkg-config' => :build
   depends_on DocutilsInstalled.new => :build
