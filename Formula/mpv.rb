@@ -18,7 +18,7 @@ class DocutilsInstalled < Requirement
   env :userpaths
 
   def message; <<-EOS.undent
-    Docutils is required to install.
+    Docutils (>= #{docutils_min_version}) is required to install mpv.
 
     You can install this with:
       [sudo] easy_install pip
@@ -27,7 +27,16 @@ class DocutilsInstalled < Requirement
   end
 
   def satisfied?
-    which('rst2man') || which('rst2man.py')
+    docutils_version >= docutils_min_version \
+      and ( which('rst2man') || which('rst2man.py') )
+  end
+
+  def docutils_min_version
+    "0.11"
+  end
+
+  def docutils_version
+    %x[python -c 'import docutils; print(globals().get("docutils") and docutils.__version__ or "")'].chomp
   end
 end
 
