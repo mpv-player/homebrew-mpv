@@ -61,8 +61,8 @@ class GitVersionWriter
 end
 
 class Mpv < Formula
-  url 'https://github.com/mpv-player/mpv/archive/v0.2.4.tar.gz'
-  sha1 'c2c1ccc86d010d4cb371eecb13b838ad3a7cfb23'
+  url 'https://github.com/mpv-player/mpv/archive/v0.3.0.tar.gz'
+  sha1 'c88d4e80858e2be01892609ee895691b221cd5bc'
   head 'https://github.com/mpv-player/mpv.git'
   homepage 'https://github.com/mpv-player/mpv'
 
@@ -114,22 +114,12 @@ class Mpv < Formula
     args = ["--prefix=#{prefix}", "--disable-sdl"]
     args << "--disable-x11" unless build.with? 'x11'
     args << "--enable-jack" if build.with? 'jackosx'
-    args << "--enable-macosx-bundle" if build.with? 'bundle' and build.head?
+    args << "--enable-macosx-bundle" if build.with? 'bundle'
 
     GitVersionWriter.new(@downloader).write if build.head?
 
-    if build.head?
-      system "waf", "configure", *args
-      system "waf", "install"
-    else
-      system "./configure", *args
-      system "make install"
-    end
-
-    if build.with? 'bundle' and not build.head?
-      system "make osxbundle-skip-deps"
-      prefix.install "mpv.app"
-    end
+    system "waf", "configure", *args
+    system "waf", "install"
   end
 
   private
@@ -145,28 +135,15 @@ class Mpv < Formula
   end
 
   def bundle_caveats
-    if build.head?
-      <<-EOS.undent
+    <<-EOS.undent
 
-      mpv.app installed to:
-        #{prefix}
+    mpv.app installed to:
+      #{prefix}
 
-      To link the application to a normal Mac OS X location:
-          brew linkapps
-      or:
-          ln -s #{bin}/mpv.app /Applications
-      EOS
-    else
-      <<-EOS.undent
-
-      mpv.app installed to:
-        #{prefix}
-
-      To link the application to a normal Mac OS X location:
-          brew linkapps
-      or:
-          ln -s #{prefix}/mpv.app /Applications
-      EOS
-    end
+    To link the application to a normal Mac OS X location:
+        brew linkapps
+    or:
+        ln -s #{bin}/mpv.app /Applications
+    EOS
   end
 end
