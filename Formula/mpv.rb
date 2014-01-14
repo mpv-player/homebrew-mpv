@@ -130,7 +130,7 @@ class Mpv < Formula
       some features like VDA and many others.
 
       If this is important to you I suggest you complain to the homebrew team
-      or install ffmpeg with `brew install --HEAD ffmpeg`.
+      or install ffmpeg with `brew install --devel ffmpeg`.
     EOS
   end
 
