@@ -1,7 +1,19 @@
 homebrew-mpv
 ============
 
-A centralized repository for `mpv` related brews.
+A centralized repository for [mpv](https://github.com/mpv-player/mpv) related brews.
+
+Requirements
+------------
+
+Docutils is required to install mpv.
+
+    [sudo] easy_install pip
+    pip install docutils
+
+To have complete features, the development version of FFmpeg is **recommended**.
+
+    brew install --devel ffmpeg
 
 Usage
 -----
