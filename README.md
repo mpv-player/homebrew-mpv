@@ -36,3 +36,12 @@ Available formulas
 
  *  mpv: builds mpv stable releases or git HEAD
  *  libass-ct: builds libass with experimental CoreText support
+
+homebrew-cask
+=============
+
+If you use [homebrew-cask](https://github.com/phinze/homebrew-cask) and want to get [Releases](https://github.com/mpv-player/mpv/releases):
+
+    brew tap phinze/cask
+    brew install brew-cask
+    brew cask install mpv
