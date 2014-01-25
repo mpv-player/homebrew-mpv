@@ -111,7 +111,7 @@ class Mpv < Formula
   end
 
   def install
-    args = ["--prefix=#{prefix}", "--disable-sdl"]
+    args = ["--prefix=#{prefix}", "--disable-sdl1"]
     args << "--disable-x11" unless build.with? 'x11'
     args << "--enable-jack" if build.with? 'jackosx'
     args << "--enable-macosx-bundle" if build.with? 'bundle'
