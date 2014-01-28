@@ -103,10 +103,7 @@ class Mpv < Formula
   depends_on JackOSX.new if build.with? 'jackosx'
 
   def caveats
-    c  = ""
-    c += ffmpeg_caveats unless ffmpeg_2_0?
-    c += bundle_caveats if build.with? 'bundle'
-    c
+    bundle_caveats if build.with? 'bundle'
   end
 
   def install
@@ -121,22 +118,6 @@ class Mpv < Formula
   end
 
   private
-  def ffmpeg_2_0?
-    !build.with? 'libav' && Formula.factory('ffmpeg').installed_version >= Version.new("2.0")
-  end
-
-  def ffmpeg_caveats; <<-EOS.undent
-      mpv requires an up to date version of ffmpeg to have complete features.
-      Unfortunately the homebrew team wants to keep support for shitty software
-      that depends on ffmpeg oldstable (1.x). This prevents mpv from activating
-      some features like VDA and many others.
-
-      If this is important to you I suggest you complain to the homebrew team
-      or install ffmpeg with `brew install --devel ffmpeg`.
-
-    EOS
-  end
-
   def bundle_caveats; <<-EOS.undent
     mpv.app installed to:
       #{prefix}
@@ -145,7 +126,6 @@ class Mpv < Formula
         brew linkapps
     or:
         ln -s #{bin}/mpv.app /Applications
-
     EOS
   end
 end
