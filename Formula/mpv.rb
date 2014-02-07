@@ -13,33 +13,6 @@ class JackOSX < Requirement
   end
 end
 
-class DocutilsInstalled < Requirement
-  fatal true
-  env :userpaths
-
-  def message; <<-EOS.undent
-    Docutils (>= #{docutils_min_version}) is required to install mpv.
-
-    You can install this with:
-      [sudo] easy_install pip
-      pip install docutils
-    EOS
-  end
-
-  def satisfied?
-    docutils_version >= docutils_min_version \
-      and ( which('rst2man') || which('rst2man.py') )
-  end
-
-  def docutils_min_version
-    "0.11"
-  end
-
-  def docutils_version
-    %x[python -c 'import docutils; print(globals().get("docutils") and docutils.__version__ or "")'].chomp
-  end
-end
-
 class GitVersionWriter
   def initialize(downloader)
     @downloader = downloader
@@ -68,7 +41,7 @@ class Mpv < Formula
 
   depends_on 'mpv-player/mpv/waf' => :build
   depends_on 'pkg-config' => :build
-  depends_on DocutilsInstalled.new => :build
+  depends_on :python
 
   option 'with-official-libass', 'Use official version of libass (instead of experimental CoreText based branch)'
   option 'with-libav',           'Build against libav instead of ffmpeg.'
@@ -102,11 +75,21 @@ class Mpv < Formula
 
   depends_on JackOSX.new if build.with? 'jackosx'
 
+  resource 'docutils' do
+    url 'https://pypi.python.org/packages/source/d/docutils/docutils-0.11.tar.gz'
+    sha1 '3894ebcbcbf8aa54ce7c3d2c8f05460544912d67'
+  end
+
   def caveats
     bundle_caveats if build.with? 'bundle'
   end
 
   def install
+    ENV.prepend_create_path 'PYTHONPATH', libexec+'lib/python2.7/site-packages'
+    ENV.prepend_create_path 'PATH', libexec+'bin'
+    resource('docutils').stage { system "python", "setup.py", "install", "--prefix=#{libexec}" }
+    bin.env_script_all_files(libexec+'bin', :PYTHONPATH => ENV['PYTHONPATH'])
+
     args = [ "--prefix=#{prefix}" ]
     args << "--enable-jack" if build.with? 'jackosx'
     args << "--enable-macosx-bundle" if build.with? 'bundle'
