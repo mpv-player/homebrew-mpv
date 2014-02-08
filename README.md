@@ -3,14 +3,6 @@ homebrew-mpv
 
 A centralized repository for [mpv](https://github.com/mpv-player/mpv) related brews.
 
-Requirements
-------------
-
-Docutils is required to install mpv.
-
-    [sudo] easy_install pip
-    pip install docutils
-
 Usage
 -----
 
