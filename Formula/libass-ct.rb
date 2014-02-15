@@ -8,10 +8,10 @@ class LibassCt < Formula
   depends_on 'autoconf' => :build
   depends_on 'automake' => :build
   depends_on 'libtool' => :build
+  depends_on 'yasm' => :build
 
   depends_on :freetype
   depends_on 'fribidi'
-
   depends_on 'harfbuzz' => :optional
 
   keg_only <<-TEXT.undent
