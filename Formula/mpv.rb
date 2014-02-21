@@ -94,7 +94,7 @@ class Mpv < Formula
     args << "--enable-jack" if build.with? 'jackosx'
     args << "--enable-macosx-bundle" if build.with? 'bundle'
 
-    GitVersionWriter.new(@downloader).write if build.head?
+    GitVersionWriter.new(@active_spec.downloader).write if build.head?
 
     system "waf", "configure", *args
     system "waf", "install"
