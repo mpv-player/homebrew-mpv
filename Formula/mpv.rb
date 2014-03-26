@@ -13,26 +13,6 @@ class JackOSX < Requirement
   end
 end
 
-class GitVersionWriter
-  def initialize(downloader)
-    @downloader = downloader
-  end
-
-  def write
-    ohai "Generating VERSION file from Homebrew's git cache"
-    File.open('VERSION', 'w') {|f| f.write(git_revision) }
-  end
-
-  private
-  def git_revision
-    `cd #{git_cache} && ./version.sh --print`.strip
-  end
-
-  def git_cache
-    @downloader.cached_location
-  end
-end
-
 class Mpv < Formula
   url 'https://github.com/mpv-player/mpv/archive/v0.3.6.tar.gz'
   sha1 'a60a49796f4181cb97f4469d2ca25b1b00db2f1d'
@@ -94,7 +74,8 @@ class Mpv < Formula
     args << "--enable-jack" if build.with? 'jackosx'
     args << "--enable-macosx-bundle" if build.with? 'bundle'
 
-    GitVersionWriter.new(@active_spec.downloader).write if build.head?
+    # For running version.sh correctly
+    buildpath.install_symlink cached_download/".git" if build.head?
 
     system "waf", "configure", *args
     system "waf", "install"
