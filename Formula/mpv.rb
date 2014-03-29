@@ -19,7 +19,6 @@ class Mpv < Formula
   head 'https://github.com/mpv-player/mpv.git'
   homepage 'https://github.com/mpv-player/mpv'
 
-  depends_on 'mpv-player/mpv/waf' => :build
   depends_on 'pkg-config' => :build
   depends_on :python
 
@@ -55,6 +54,13 @@ class Mpv < Formula
 
   depends_on JackOSX.new if build.with? 'jackosx'
 
+  WAF_VERSION = "waf-1.7.13".freeze
+
+  resource 'waf' do
+    url "https://waf.googlecode.com/files/#{WAF_VERSION}"
+    sha1 'f97a8675aa0f6ddf2f8a05d45d44881d2d1a3c8e'
+  end
+
   resource 'docutils' do
     url 'https://pypi.python.org/packages/source/d/docutils/docutils-0.11.tar.gz'
     sha1 '3894ebcbcbf8aa54ce7c3d2c8f05460544912d67'
@@ -76,9 +82,9 @@ class Mpv < Formula
 
     # For running version.sh correctly
     buildpath.install_symlink cached_download/".git" if build.head?
-
-    system "waf", "configure", *args
-    system "waf", "install"
+    buildpath.install resource('waf').files(WAF_VERSION => "waf")
+    system "python", "waf", "configure", *args
+    system "python", "waf", "install"
   end
 
   private
