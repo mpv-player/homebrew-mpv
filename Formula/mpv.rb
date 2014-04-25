@@ -30,7 +30,7 @@ class Mpv < Formula
   if build.with? 'official-libass'
     depends_on 'libass'
   else
-    depends_on 'libass-ct'
+    depends_on 'mpv-player/mpv/libass-ct'
   end
 
   if build.with? 'libav'
