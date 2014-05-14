@@ -25,7 +25,8 @@ class Mpv < Formula
 
   option 'with-official-libass', 'Use official version of libass (instead of experimental CoreText based branch)'
   option 'with-libav',           'Build against libav instead of ffmpeg.'
-  option 'with-bundle',          'Create a Mac OSX Application Bundle alongside the CLI version of mpv.'
+  option 'with-libmpv',          'Build shared library.'
+  option 'without-bundle',       'Disable compilation of a Mac OS X Application bundle.'
   option 'with-jackosx',         'Build with jackosx support.'
 
   if build.with? 'official-libass'
@@ -47,8 +48,8 @@ class Mpv < Formula
   depends_on 'libbs2b'     => :optional
   depends_on 'libquvi'     => :optional
   depends_on 'libdvdread'  => :optional
-  depends_on 'little-cms2' => :optional
-  depends_on 'lua'         => :optional
+  depends_on 'little-cms2' => :recommended
+  depends_on 'lua'         => :recommended
   depends_on 'libbluray'   => :optional
   depends_on 'libaacs'     => :optional
   depends_on :x11          => :optional
@@ -68,7 +69,7 @@ class Mpv < Formula
   end
 
   def caveats
-    bundle_caveats if build.with? 'bundle'
+    bundle_caveats unless build.without? 'bundle'
   end
 
   def install
@@ -79,7 +80,8 @@ class Mpv < Formula
 
     args = [ "--prefix=#{prefix}" ]
     args << "--enable-jack" if build.with? 'jackosx'
-    args << "--enable-macosx-bundle" if build.with? 'bundle'
+    args << "--enable-libmpv-shared" << "--disable-client-api-examples" if build.with? "libmpv"
+    args << "--enable-macosx-bundle" unless build.without? 'bundle'
 
     # For running version.sh correctly
     buildpath.install_symlink cached_download/".git" if build.head?
