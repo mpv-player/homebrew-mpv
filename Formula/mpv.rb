@@ -81,13 +81,18 @@ class Mpv < Formula
     args = [ "--prefix=#{prefix}" ]
     args << "--enable-jack" if build.with? 'jackosx'
     args << "--enable-libmpv-shared" << "--disable-client-api-examples" if build.with? "libmpv"
-    args << "--enable-macosx-bundle" unless build.without? 'bundle'
 
     # For running version.sh correctly
     buildpath.install_symlink cached_download/".git" if build.head?
     buildpath.install resource('waf').files(WAF_VERSION => "waf")
     system "python", "waf", "configure", *args
     system "python", "waf", "install"
+
+    unless build.without? 'bundle'
+      ohai "creating a OS X Application bundle"
+      system "python", "TOOLS/osxbundle.py", "build/mpv"
+      bin.install "build/mpv.app"
+    end
   end
 
   private
