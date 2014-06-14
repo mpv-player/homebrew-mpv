@@ -75,6 +75,7 @@ class Mpv < Formula
   def install
     ENV.prepend_create_path 'PYTHONPATH', libexec+'lib/python2.7/site-packages'
     ENV.prepend_create_path 'PATH', libexec+'bin'
+    ENV.append 'LC_ALL', 'en_US.UTF-8'
     resource('docutils').stage { system "python", "setup.py", "install", "--prefix=#{libexec}" }
     bin.env_script_all_files(libexec+'bin', :PYTHONPATH => ENV['PYTHONPATH'])
 
