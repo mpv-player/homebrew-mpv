@@ -82,6 +82,7 @@ class Mpv < Formula
     args = [ "--prefix=#{prefix}" ]
     args << "--enable-jack" if build.with? 'jackosx'
     args << "--enable-libmpv-shared" << "--disable-client-api-examples" if build.with? "libmpv"
+    args << "--enable-zsh-comp" if build.head?
 
     # For running version.sh correctly
     buildpath.install_symlink cached_download/".git" if build.head?
@@ -93,6 +94,11 @@ class Mpv < Formula
       ohai "creating a OS X Application bundle"
       system "python", "TOOLS/osxbundle.py", "build/mpv"
       bin.install "build/mpv.app"
+    end
+
+    # install zsh completion
+    if build.head?
+      zsh_completion.install "#{share}/zsh/vendor-completions/_mpv"
     end
   end
 
