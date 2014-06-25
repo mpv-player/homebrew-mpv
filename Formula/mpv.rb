@@ -56,11 +56,11 @@ class Mpv < Formula
 
   depends_on JackOSX.new if build.with? 'jackosx'
 
-  WAF_VERSION = "waf-1.7.15".freeze
+  WAF_VERSION = "waf-1.7.16".freeze
 
   resource 'waf' do
-    url "https://waf.googlecode.com/files/#{WAF_VERSION}"
-    sha1 'c5c2ed76b72a81ee0154265cbb55d6c7cdce434f'
+    url "http://ftp.waf.io/pub/release/#{WAF_VERSION}"
+    sha1 'cc67c92066dc5b92a4942f9c1c25f8fea6be58b5'
   end
 
   resource 'docutils' do
