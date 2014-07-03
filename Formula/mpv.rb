@@ -28,6 +28,7 @@ class Mpv < Formula
   option 'with-libmpv',          'Build shared library.'
   option 'without-bundle',       'Disable compilation of a Mac OS X Application bundle.'
   option 'with-jackosx',         'Build with jackosx support.'
+  option 'without-zsh-comp',     'Install without zsh completion'
 
   if build.with? 'official-libass'
     depends_on 'libass'
@@ -82,7 +83,7 @@ class Mpv < Formula
     args = [ "--prefix=#{prefix}" ]
     args << "--enable-jack" if build.with? 'jackosx'
     args << "--enable-libmpv-shared" << "--disable-client-api-examples" if build.with? "libmpv"
-    args << "--enable-zsh-comp"
+    args << "--enable-zsh-comp" unless build.without? "zsh-comp"
 
     # For running version.sh correctly
     buildpath.install_symlink cached_download/".git" if build.head?
@@ -97,7 +98,7 @@ class Mpv < Formula
     end
 
     # install zsh completion
-    zsh_completion.install "#{share}/zsh/vendor-completions/_mpv"
+    zsh_completion.install "#{share}/zsh/vendor-completions/_mpv" unless build.without? "zsh-comp"
   end
 
   private
