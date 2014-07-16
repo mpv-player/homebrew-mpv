@@ -2,9 +2,7 @@ require 'formula'
 
 class LibassCt < Formula
   homepage 'https://github.com/pigoz/libass-ct'
-  head 'https://github.com/pigoz/libass-ct.git',
-    :using  => :git,
-    :branch => 'fonts'
+  head 'https://github.com/pigoz/libass-ct.git', :branch => 'fonts'
 
   depends_on 'pkg-config' => :build
   depends_on 'autoconf' => :build
