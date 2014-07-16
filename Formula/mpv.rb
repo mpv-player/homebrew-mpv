@@ -94,7 +94,7 @@ class Mpv < Formula
     unless build.without? 'bundle'
       ohai "creating a OS X Application bundle"
       system "python", "TOOLS/osxbundle.py", "build/mpv"
-      bin.install "build/mpv.app"
+      prefix.install "build/mpv.app"
     end
 
     # install zsh completion
@@ -109,7 +109,7 @@ class Mpv < Formula
     To link the application to a normal Mac OS X location:
         brew linkapps
     or:
-        ln -s #{bin}/mpv.app /Applications
+        ln -s #{prefix}/mpv.app /Applications
     EOS
   end
 end
