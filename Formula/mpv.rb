@@ -83,7 +83,7 @@ class Mpv < Formula
     args = [ "--prefix=#{prefix}" ]
     args << "--enable-jack" if build.with? 'jackosx'
     args << "--enable-libmpv-shared" << "--disable-client-api-examples" if build.with? "libmpv"
-    args << "--enable-zsh-comp" if build.with? "zsh-comp"
+    args << "--enable-zsh-comp" if build.without? "no-zsh-comp"
 
     # For running version.sh correctly
     buildpath.install_symlink cached_download/".git" if build.head?
@@ -98,7 +98,7 @@ class Mpv < Formula
     end
 
     # install zsh completion
-    if build.with? "zsh-comp"
+    if build.without? "no-zsh-comp"
       zsh_completion.install share/'zsh/vendor-completions/_mpv'
     end
   end
