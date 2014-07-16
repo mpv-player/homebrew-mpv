@@ -74,11 +74,11 @@ class Mpv < Formula
   end
 
   def install
-    ENV.prepend_create_path 'PYTHONPATH', libexec+'lib/python2.7/site-packages'
-    ENV.prepend_create_path 'PATH', libexec+'bin'
+    ENV.prepend_create_path 'PYTHONPATH', libexec/'lib/python2.7/site-packages'
+    ENV.prepend_create_path 'PATH', libexec/'bin'
     ENV.append 'LC_ALL', 'en_US.UTF-8'
     resource('docutils').stage { system "python", "setup.py", "install", "--prefix=#{libexec}" }
-    bin.env_script_all_files(libexec+'bin', :PYTHONPATH => ENV['PYTHONPATH'])
+    bin.env_script_all_files(libexec/'bin', :PYTHONPATH => ENV['PYTHONPATH'])
 
     args = [ "--prefix=#{prefix}" ]
     args << "--enable-jack" if build.with? 'jackosx'
@@ -98,7 +98,9 @@ class Mpv < Formula
     end
 
     # install zsh completion
-    zsh_completion.install "#{share}/zsh/vendor-completions/_mpv" if build.with? "zsh-comp"
+    if build.with? "zsh-comp"
+      zsh_completion.install share/'zsh/vendor-completions/_mpv'
+    end
   end
 
   private
