@@ -70,7 +70,7 @@ class Mpv < Formula
   end
 
   def caveats
-    bundle_caveats unless build.without? 'bundle'
+    bundle_caveats if build.with? 'bundle'
   end
 
   def install
@@ -83,7 +83,7 @@ class Mpv < Formula
     args = [ "--prefix=#{prefix}" ]
     args << "--enable-jack" if build.with? 'jackosx'
     args << "--enable-libmpv-shared" << "--disable-client-api-examples" if build.with? "libmpv"
-    args << "--enable-zsh-comp" unless build.without? "zsh-comp"
+    args << "--enable-zsh-comp" if build.with? "zsh-comp"
 
     # For running version.sh correctly
     buildpath.install_symlink cached_download/".git" if build.head?
@@ -91,14 +91,14 @@ class Mpv < Formula
     system "python", "waf", "configure", *args
     system "python", "waf", "install"
 
-    unless build.without? 'bundle'
+    if build.with? 'bundle'
       ohai "creating a OS X Application bundle"
       system "python", "TOOLS/osxbundle.py", "build/mpv"
       prefix.install "build/mpv.app"
     end
 
     # install zsh completion
-    zsh_completion.install "#{share}/zsh/vendor-completions/_mpv" unless build.without? "zsh-comp"
+    zsh_completion.install "#{share}/zsh/vendor-completions/_mpv" if build.with? "zsh-comp"
   end
 
   private
