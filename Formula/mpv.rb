@@ -26,6 +26,7 @@ class Mpv < Formula
   option 'with-official-libass', 'Use official version of libass (instead of experimental CoreText based branch)'
   option 'with-libav',           'Build against libav instead of ffmpeg.'
   option 'with-libmpv',          'Build shared library.'
+  option 'without-optimization', 'Disable compiler optimization.'
   option 'without-bundle',       'Disable compilation of a Mac OS X Application bundle.'
   option 'with-jackosx',         'Build with jackosx support.'
   option 'without-zsh-comp',     'Install without zsh completion'
@@ -83,6 +84,7 @@ class Mpv < Formula
     args = [ "--prefix=#{prefix}" ]
     args << "--enable-jack" if build.with? 'jackosx'
     args << "--enable-libmpv-shared" << "--disable-client-api-examples" if build.with? "libmpv"
+    args << "--disable-optimize" if build.without? "optimization" and build.head?
     args << "--enable-zsh-comp" if build.with? "zsh-comp"
 
     # For running version.sh correctly
