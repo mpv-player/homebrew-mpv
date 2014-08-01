@@ -51,7 +51,9 @@ class Mpv < Formula
   depends_on 'libbluray'   => :optional
   depends_on 'libaacs'     => :optional
   depends_on :x11          => :optional
+  depends_on 'vapoursynth' => :optional
 
+  depends_on 'python3' if build.with? 'vapoursynth'
   depends_on JackOSX.new if build.with? 'jackosx'
 
   WAF_VERSION = "waf-1.7.16".freeze
@@ -76,6 +78,11 @@ class Mpv < Formula
     ENV.append 'LC_ALL', 'en_US.UTF-8'
     resource('docutils').stage { system "python", "setup.py", "install", "--prefix=#{libexec}" }
     bin.env_script_all_files(libexec/'bin', :PYTHONPATH => ENV['PYTHONPATH'])
+
+    if build.with? 'vapoursynth'
+      pyver = Language::Python.major_minor_version Formula['python3'].bin/'python3'
+      ENV.append_path 'PKG_CONFIG_PATH', Formula['python3'].frameworks/'Python.framework/Versions'/pyver/'lib/pkgconfig'
+    end
 
     args = [ "--prefix=#{prefix}" ]
     args << "--enable-jack" if build.with? 'jackosx'
