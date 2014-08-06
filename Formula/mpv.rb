@@ -85,7 +85,7 @@ class Mpv < Formula
 
     if build.with? 'vapoursynth'
       pyver = Language::Python.major_minor_version Formula['python3'].bin/'python3'
-      ENV.append_path 'PKG_CONFIG_PATH', Formula['python3'].frameworks/"Python.framework/Versions/#{pyver}/lib/pkgconfig"
+      ENV.append_path 'PKG_CONFIG_PATH', Formula['python3'].frameworks/'Python.framework/Versions'/pyver/'lib/pkgconfig'
     end
 
     args = [ "--prefix=#{prefix}" ]
