@@ -50,6 +50,7 @@ class Mpv < Formula
   depends_on 'libbs2b'     => :optional
   depends_on 'libquvi'     => :optional
   depends_on 'libdvdread'  => :optional
+  depends_on 'libdvdnav'   => :optional
   depends_on 'little-cms2' => :recommended
   depends_on 'lua'         => :recommended
   depends_on 'libbluray'   => :optional
