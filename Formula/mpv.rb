@@ -24,7 +24,6 @@ class Mpv < Formula
   depends_on :python
 
   option 'with-official-libass', 'Use official version of libass (instead of experimental CoreText based branch)'
-  option 'with-libav',           'Build against libav instead of ffmpeg.'
   option 'with-libmpv',          'Build shared library.'
   option 'without-optimization', 'Disable compiler optimization.'
   option 'without-bundle',       'Disable compilation of a Mac OS X Application bundle.'
@@ -37,11 +36,7 @@ class Mpv < Formula
     depends_on 'mpv-player/mpv/libass-ct'
   end
 
-  if build.with? 'libav'
-    depends_on 'libav'
-  else
-    depends_on 'ffmpeg'
-  end
+  depends_on 'ffmpeg'
 
   depends_on 'mpg123'      => :recommended
   depends_on 'jpeg'        => :recommended
