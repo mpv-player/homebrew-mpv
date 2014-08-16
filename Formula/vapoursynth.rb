@@ -1,6 +1,8 @@
 require "formula"
 
 class Vapoursynth < Formula
+  url  'https://github.com/vapoursynth/vapoursynth/archive/R24.tar.gz'
+  sha1 'ae59c0a5a629e12000b1316380286c5251bc69ea'
   homepage "http://www.vapoursynth.com"
   head "https://github.com/vapoursynth/vapoursynth.git"
 
