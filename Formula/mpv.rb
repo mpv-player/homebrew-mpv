@@ -14,8 +14,8 @@ class JackOSX < Requirement
 end
 
 class Mpv < Formula
-  url 'https://github.com/mpv-player/mpv/archive/v0.6.0.tar.gz'
-  sha1 '60188f045ab177106b10443cf592184e5a4efd59'
+  url 'https://github.com/mpv-player/mpv/archive/v0.6.1.tar.gz'
+  sha1 '5d66e5fe6c4e3c84049e9516fa31eb1d6dee13f7'
   head 'https://github.com/mpv-player/mpv.git',
     :branch => ENV['MPV_BRANCH'] || "master"
   homepage 'https://github.com/mpv-player/mpv'
