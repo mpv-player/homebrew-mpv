@@ -56,11 +56,17 @@ class Mpv < Formula
   depends_on 'python3' if build.with? 'vapoursynth'
   depends_on JackOSX.new if build.with? 'jackosx'
 
-  WAF_VERSION = "waf-1.7.16".freeze
+  if build.head?
+    WAF_VERSION = "waf-1.8.1".freeze
+    WAF_SHA1    = "1d0a1cc1e0b490deae5b500201c1b0e44a908a45".freeze
+  else
+    WAF_VERSION = "waf-1.7.16".freeze
+    WAF_SHA1    = "cc67c92066dc5b92a4942f9c1c25f8fea6be58b5".freeze
+  end
 
   resource 'waf' do
     url "http://ftp.waf.io/pub/release/#{WAF_VERSION}"
-    sha1 'cc67c92066dc5b92a4942f9c1c25f8fea6be58b5'
+    sha1 WAF_SHA1
   end
 
   resource 'docutils' do
@@ -103,7 +109,7 @@ class Mpv < Formula
     end
 
     # install zsh completion
-    if build.with? "zsh-comp"
+    if build.with? "zsh-comp" and not build.head?
       zsh_completion.install share/'zsh/vendor-completions/_mpv'
     end
   end
