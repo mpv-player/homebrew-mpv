@@ -14,8 +14,8 @@ class JackOSX < Requirement
 end
 
 class Mpv < Formula
-  url 'https://github.com/mpv-player/mpv/archive/v0.6.2.tar.gz'
-  sha1 '4285b896681b006b1067d7918dc19f2329e60260'
+  url 'https://github.com/mpv-player/mpv/archive/v0.7.0.tar.gz'
+  sha1 'cbc3876888eb7dd95080703f05954376f2d212b9'
   head 'https://github.com/mpv-player/mpv.git',
     :branch => ENV['MPV_BRANCH'] || "master"
   homepage 'https://github.com/mpv-player/mpv'
@@ -55,13 +55,8 @@ class Mpv < Formula
   depends_on 'python3' if build.with? 'vapoursynth'
   depends_on JackOSX.new if build.with? 'jackosx'
 
-  if build.head?
-    WAF_VERSION = "waf-1.8.1".freeze
-    WAF_SHA1    = "1d0a1cc1e0b490deae5b500201c1b0e44a908a45".freeze
-  else
-    WAF_VERSION = "waf-1.7.16".freeze
-    WAF_SHA1    = "cc67c92066dc5b92a4942f9c1c25f8fea6be58b5".freeze
-  end
+  WAF_VERSION = "waf-1.8.1".freeze
+  WAF_SHA1    = "1d0a1cc1e0b490deae5b500201c1b0e44a908a45".freeze
 
   resource 'waf' do
     url "http://ftp.waf.io/pub/release/#{WAF_VERSION}"
@@ -105,11 +100,6 @@ class Mpv < Formula
       ohai "creating a OS X Application bundle"
       system "python", "TOOLS/osxbundle.py", "build/mpv"
       prefix.install "build/mpv.app"
-    end
-
-    # install zsh completion
-    if build.with? "zsh-comp" and not build.head?
-      zsh_completion.install share/'zsh/vendor-completions/_mpv'
     end
   end
 
