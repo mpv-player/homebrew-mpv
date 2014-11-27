@@ -24,6 +24,8 @@ Available formulas
 
  *  mpv: builds mpv stable releases or git HEAD
  *  libass-ct: builds libass with experimental CoreText support
+ *  vapoursynth: builds vapoursynth with python3 support
+ *  f3kdb: builds the flash3kyuu_deband vapoursynth filter
 
 homebrew-cask
 =============
