@@ -55,8 +55,13 @@ class Mpv < Formula
   depends_on 'python3' if build.with? 'vapoursynth'
   depends_on JackOSX.new if build.with? 'jackosx'
 
-  WAF_VERSION = "waf-1.8.1".freeze
-  WAF_SHA1    = "1d0a1cc1e0b490deae5b500201c1b0e44a908a45".freeze
+  if build.head?
+    WAF_VERSION = "waf-1.8.4".freeze
+    WAF_SHA1    = "42b36fabac41ab6f14ccb4808bd9ec87149a37a9".freeze
+  else
+    WAF_VERSION = "waf-1.8.1".freeze
+    WAF_SHA1    = "1d0a1cc1e0b490deae5b500201c1b0e44a908a45".freeze
+  end
 
   resource 'waf' do
     url "http://ftp.waf.io/pub/release/#{WAF_VERSION}"
