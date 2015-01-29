@@ -1,42 +1,47 @@
 require "formula"
 
 class Vapoursynth < Formula
-  url  'https://github.com/vapoursynth/vapoursynth/archive/R25.tar.gz'
-  sha1 '58e7aeb50ac922b65cabb45e5027b3c977b0a456'
+  url  'https://github.com/vapoursynth/vapoursynth/archive/R26.tar.gz'
+  sha1 '8c170c44179f1c8f42332ec3ec446f87a8694ec5'
   homepage "http://www.vapoursynth.com"
   head "https://github.com/vapoursynth/vapoursynth.git"
 
   needs :cxx11
-
   depends_on 'pkg-config' => :build
-  depends_on 'yasm'       => :build
-  depends_on 'sphinx'     => :build
+  depends_on 'autoconf' => :build
+  depends_on 'automake' => :build
+  depends_on 'libtool' => :build
+  depends_on 'yasm' => :build
   depends_on :python3
 
   depends_on 'ffmpeg'
   depends_on 'libass-ct'
+  depends_on 'tesseract'
 
-  depends_on 'tesseract'  => :optional
-
-  WAF_VERSION = "waf-1.7.15".freeze
-
-  resource 'waf' do
-    url "https://waf.googlecode.com/files/#{WAF_VERSION}"
-    sha1 'c5c2ed76b72a81ee0154265cbb55d6c7cdce434f'
+  resource 'cython' do
+    url 'https://pypi.python.org/packages/source/C/Cython/Cython-0.21.2.tar.gz'
+    md5 'd21adb870c75680dc857cd05d41046a4'
   end
 
-
   def install
-    buildpath.install resource('waf').files(WAF_VERSION => "waf")
+    add_python_paths
+    ohai "installing Cython to: #{libexec}"
+    resource('cython').stage { system "python3", "setup.py", "install", "--prefix=#{libexec}" }
     args = [ "--prefix=#{prefix}" ]
+    system "./autogen.sh"
+    system "./configure", *args
+    system "make install"
+  end
 
-    system "python3", "waf", "configure", *args
-    system "python3", "waf", "build"
+  private
+  def add_python_paths
+    ENV.prepend_create_path 'PYTHONPATH', libexec/"lib/python#{pyver}/site-packages"
+    ENV.prepend_create_path 'PATH', libexec/'bin'
+    python_prefix = Pathname.new(`python3-config --prefix`.chomp)
+    ENV.append_path "PKG_CONFIG_PATH", python_prefix / 'lib' / 'pkgconfig'
+  end
 
-    system "pip3", "install", "Cython"
-    system "python3", "setup.py", "build"
-
-    system "python3", "waf", "install"
-    system "python3", "setup.py", "install"
+  def pyver
+    Language::Python.major_minor_version Formula['python3'].bin/'python3'
   end
 end
