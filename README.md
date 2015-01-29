@@ -26,6 +26,7 @@ Available formulas
  *  libass-ct: builds libass with experimental CoreText support
  *  vapoursynth: builds vapoursynth with python3 support
  *  f3kdb: builds the flash3kyuu_deband vapoursynth filter
+ *  mvtools: builds the mvtools vapoursynth filter
 
 homebrew-cask
 =============
