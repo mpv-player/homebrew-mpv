@@ -14,8 +14,8 @@ class JackOSX < Requirement
 end
 
 class Mpv < Formula
-  url 'https://github.com/mpv-player/mpv/archive/v0.7.3.tar.gz'
-  sha1 'ea160d28738e1e2084a02eebf721831b38915fd4'
+  url 'https://github.com/mpv-player/mpv/archive/v0.8.0.tar.gz'
+  sha1 '8185c54989a92d7e622850ef869180cf3e239d2f'
   head 'https://github.com/mpv-player/mpv.git',
     :branch => ENV['MPV_BRANCH'] || "master"
   homepage 'https://github.com/mpv-player/mpv'
@@ -55,13 +55,8 @@ class Mpv < Formula
   depends_on 'python3' if build.with? 'vapoursynth'
   depends_on JackOSX.new if build.with? 'jackosx'
 
-  if build.head?
-    WAF_VERSION = "waf-1.8.4".freeze
-    WAF_SHA1    = "42b36fabac41ab6f14ccb4808bd9ec87149a37a9".freeze
-  else
-    WAF_VERSION = "waf-1.8.1".freeze
-    WAF_SHA1    = "1d0a1cc1e0b490deae5b500201c1b0e44a908a45".freeze
-  end
+  WAF_VERSION = "waf-1.8.4".freeze
+  WAF_SHA1    = "42b36fabac41ab6f14ccb4808bd9ec87149a37a9".freeze
 
   resource 'waf' do
     url "http://ftp.waf.io/pub/release/#{WAF_VERSION}"
