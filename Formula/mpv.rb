@@ -31,9 +31,9 @@ class Mpv < Formula
   option 'without-zsh-comp',     'Install without zsh completion'
 
   if build.with? 'official-libass'
-    depends_on 'libass'
+    depends_on 'libass' => 'with-harfbuzz'
   else
-    depends_on 'mpv-player/mpv/libass-ct'
+    depends_on 'mpv-player/mpv/libass-ct' => 'with-harfbuzz'
   end
 
   depends_on 'ffmpeg'
