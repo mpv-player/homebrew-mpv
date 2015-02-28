@@ -24,6 +24,7 @@ Available formulas
 
  *  mpv: builds mpv stable releases or git HEAD
  *  libass-ct: builds libass with experimental CoreText support
+ *  harfbuzz: builds a minimal version of harbuzz for libass
  *  vapoursynth: builds vapoursynth with python3 support
  *  f3kdb: builds the flash3kyuu_deband vapoursynth filter
  *  mvtools: builds the mvtools vapoursynth filter
@@ -31,7 +32,8 @@ Available formulas
 homebrew-cask
 =============
 
-If you use [homebrew-cask](https://github.com/phinze/homebrew-cask) and want to get [Releases](https://github.com/mpv-player/mpv/releases):
+If you use [homebrew-cask](https://github.com/phinze/homebrew-cask) and want
+to get [Releases](https://github.com/mpv-player/mpv/releases):
 
     brew tap caskroom/cask
     brew install brew-cask
