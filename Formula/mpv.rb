@@ -1,18 +1,5 @@
 require 'formula'
 
-class JackOSX < Requirement
-  fatal true
-
-  env do
-    ENV.append 'CFLAGS',  '-I/usr/local/include'
-    ENV.append 'LDFLAGS', '-L/usr/local/lib -ljack -framework CoreAudio -framework CoreServices -framework AudioUnit'
-  end
-
-  def satisfied?
-    which('jackd')
-  end
-end
-
 class Mpv < Formula
   url 'https://github.com/mpv-player/mpv/archive/v0.8.0.tar.gz'
   sha1 '8185c54989a92d7e622850ef869180cf3e239d2f'
@@ -27,7 +14,6 @@ class Mpv < Formula
   option 'with-libmpv',          'Build shared library.'
   option 'without-optimization', 'Disable compiler optimization.'
   option 'without-bundle',       'Disable compilation of a Mac OS X Application bundle.'
-  option 'with-jackosx',         'Build with jackosx support.'
   option 'without-zsh-comp',     'Install without zsh completion'
 
   if build.with? 'official-libass'
@@ -51,9 +37,7 @@ class Mpv < Formula
   depends_on 'libaacs'     => :optional
   depends_on :x11          => :optional
   depends_on 'vapoursynth' => :optional
-
   depends_on 'python3' if build.with? 'vapoursynth'
-  depends_on JackOSX.new if build.with? 'jackosx'
 
   WAF_VERSION = "waf-1.8.4".freeze
   WAF_SHA1    = "42b36fabac41ab6f14ccb4808bd9ec87149a37a9".freeze
@@ -85,7 +69,6 @@ class Mpv < Formula
     end
 
     args = [ "--prefix=#{prefix}" ]
-    args << "--enable-jack" if build.with? 'jackosx'
     args << "--enable-libmpv-shared" << "--disable-client-api-examples" if build.with? "libmpv"
     args << "--disable-optimize" if build.without? "optimization" and build.head?
     args << "--enable-zsh-comp" if build.with? "zsh-comp"
