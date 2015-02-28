@@ -15,8 +15,15 @@ class Vapoursynth < Formula
   depends_on :python3
 
   depends_on 'ffmpeg'
-  depends_on 'libass-ct'
   depends_on 'tesseract'
+
+  option 'with-official-libass', 'Use official version of libass'
+
+  if build.with? 'official-libass'
+    depends_on 'libass' => 'with-harfbuzz'
+  else
+    depends_on 'mpv-player/mpv/libass-ct'
+  end
 
   resource 'cython' do
     url 'https://pypi.python.org/packages/source/C/Cython/Cython-0.21.2.tar.gz'

@@ -10,7 +10,7 @@ class Mpv < Formula
   depends_on 'pkg-config' => :build
   depends_on :python
 
-  option 'with-official-libass', 'Use official version of libass (instead of experimental CoreText based branch)'
+  option 'with-official-libass', 'Use official version of libass'
   option 'with-libmpv',          'Build shared library.'
   option 'without-optimization', 'Disable compiler optimization.'
   option 'without-bundle',       'Disable compilation of a Mac OS X Application bundle.'
@@ -36,7 +36,13 @@ class Mpv < Formula
   depends_on 'libbluray'   => :optional
   depends_on 'libaacs'     => :optional
   depends_on :x11          => :optional
-  depends_on 'vapoursynth' => :optional
+
+  if build.with? 'official-libass'
+    depends_on 'vapoursynth' => [:optional, 'with-official-libass']
+  else
+    depends_on 'vapoursynth' => :optional
+  end
+
   depends_on 'python3' if build.with? 'vapoursynth'
 
   WAF_VERSION = "waf-1.8.4".freeze
