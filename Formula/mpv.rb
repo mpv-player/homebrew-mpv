@@ -49,7 +49,7 @@ class Mpv < Formula
   WAF_SHA1    = "42b36fabac41ab6f14ccb4808bd9ec87149a37a9".freeze
 
   resource 'waf' do
-    url "ftp://ftp.waf.io/pub/release/#{WAF_VERSION}"
+    url "http://ftp.waf.io/pub/release/#{WAF_VERSION}"
     sha1 WAF_SHA1
   end
 
