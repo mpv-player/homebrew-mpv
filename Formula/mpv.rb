@@ -75,7 +75,7 @@ class Mpv < Formula
     end
 
     args = [ "--prefix=#{prefix}" ]
-    args << "--enable-libmpv-shared" << "--disable-client-api-examples" if build.with? "libmpv"
+    args << "--enable-libmpv-shared" if build.with? "libmpv"
     args << "--disable-optimize" if build.without? "optimization" and build.head?
     args << "--enable-zsh-comp" if build.with? "zsh-comp"
 
