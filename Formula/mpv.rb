@@ -1,8 +1,8 @@
 require 'formula'
 
 class Mpv < Formula
-  url 'https://github.com/mpv-player/mpv/archive/v0.9.1.tar.gz'
-  sha1 'a9f164ffa7faf60bb020511af94d3404f2ea1744'
+  url 'https://github.com/mpv-player/mpv/archive/v0.9.2.tar.gz'
+  sha1 'e5b59d62dee13f8f5cf3974f9c46b7afeb02b740'
   head 'https://github.com/mpv-player/mpv.git',
     :branch => ENV['MPV_BRANCH'] || "master"
   homepage 'https://github.com/mpv-player/mpv'
