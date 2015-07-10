@@ -23,7 +23,6 @@ Available formulas
 
  *  mpv: builds mpv stable releases or git HEAD
  *  libass-ct: builds libass with experimental CoreText support
- *  harfbuzz: builds a minimal version of harbuzz for libass
  *  vapoursynth: builds vapoursynth with python3 support
  *  f3kdb: builds the flash3kyuu deband vapoursynth filter
  *  mvtools: builds the mvtools vapoursynth filter
