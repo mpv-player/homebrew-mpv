@@ -12,7 +12,7 @@ class LibassCt < Formula
 
   depends_on :freetype
   depends_on 'fribidi'
-  depends_on 'mpv-player/mpv/harfbuzz'
+  depends_on 'harfbuzz'
 
   keg_only <<-TEXT.undent
     This is a drop in replacement of libass. It uses the same pkg-config
