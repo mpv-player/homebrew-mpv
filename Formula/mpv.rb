@@ -45,12 +45,12 @@ class Mpv < Formula
 
   depends_on 'python3' if build.with? 'vapoursynth'
 
-  WAF_VERSION = "waf-1.8.4".freeze
-  WAF_SHA1    = "42b36fabac41ab6f14ccb4808bd9ec87149a37a9".freeze
+  WAF_VERSION = "waf-1.8.12".freeze
+  WAF_SHA256    = "01bf2beab2106d1558800c8709bc2c8e496d3da4a2ca343fe091f22fca60c98b".freeze
 
   resource 'waf' do
-    url "http://ftp.waf.io/pub/release/#{WAF_VERSION}"
-    sha1 WAF_SHA1
+    url "https://waf.io/#{WAF_VERSION}"
+    sha256 WAF_SHA256
   end
 
   resource 'docutils' do
