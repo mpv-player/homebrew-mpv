@@ -2,7 +2,7 @@ require 'formula'
 
 class Mpv < Formula
   url 'https://github.com/mpv-player/mpv/archive/v0.9.2.tar.gz'
-  sha1 'e5b59d62dee13f8f5cf3974f9c46b7afeb02b740'
+  sha256 'c0148f55dbd17705f49bb496d0ce374419de62e1b17195d91409d7727cbd4751'
   head 'https://github.com/mpv-player/mpv.git',
     :branch => ENV['MPV_BRANCH'] || "master"
   homepage 'https://github.com/mpv-player/mpv'
@@ -55,7 +55,7 @@ class Mpv < Formula
 
   resource 'docutils' do
     url 'https://pypi.python.org/packages/source/d/docutils/docutils-0.11.tar.gz'
-    sha1 '3894ebcbcbf8aa54ce7c3d2c8f05460544912d67'
+    sha256 '9af4166adf364447289c5c697bb83c52f1d6f57e77849abcccd6a4a18a5e7ec9'
   end
 
   def caveats
