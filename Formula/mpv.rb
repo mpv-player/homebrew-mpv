@@ -79,8 +79,6 @@ class Mpv < Formula
     args << "--disable-optimize" if build.without? "optimization" and build.head?
     args << "--enable-zsh-comp" if build.with? "zsh-comp"
 
-    # For running version.sh correctly
-    buildpath.install_symlink cached_download/".git" if build.head?
     buildpath.install resource('waf').files(WAF_VERSION => "waf")
     system "python", "waf", "configure", *args
     system "python", "waf", "install"
