@@ -33,6 +33,7 @@ class Mpv < Formula
   depends_on 'libdvdnav'   => :optional
   depends_on 'little-cms2' => :recommended
   depends_on 'lua'         => :recommended
+  depends_on 'youtube-dl'  => :recommended
   depends_on 'libbluray'   => :optional
   depends_on 'libaacs'     => :optional
   depends_on :x11          => :optional
