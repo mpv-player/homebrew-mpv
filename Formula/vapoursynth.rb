@@ -22,7 +22,7 @@ class Vapoursynth < Formula
   if build.with? 'official-libass'
     depends_on 'libass' => 'with-harfbuzz'
   else
-    depends_on 'mpv-player/mpv/libass-ct'
+    depends_on 'mpv-player/mpv/libass-git'
   end
 
   resource 'cython' do
