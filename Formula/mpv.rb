@@ -55,8 +55,8 @@ class Mpv < Formula
   end
 
   resource 'docutils' do
-    url 'https://pypi.python.org/packages/source/d/docutils/docutils-0.11.tar.gz'
-    sha256 '9af4166adf364447289c5c697bb83c52f1d6f57e77849abcccd6a4a18a5e7ec9'
+    url 'https://pypi.python.org/packages/source/d/docutils/docutils-0.12.tar.gz'
+    sha256 'c7db717810ab6965f66c8cf0398a98c9d8df982da39b4cd7f162911eb89596fa'
   end
 
   def caveats
