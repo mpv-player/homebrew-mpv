@@ -8,7 +8,7 @@ class Mpv < Formula
   homepage 'https://github.com/mpv-player/mpv'
 
   depends_on 'pkg-config' => :build
-  depends_on :python
+  depends_on :python3
 
   option 'with-official-libass', 'Use official version of libass'
   option 'with-libmpv',          'Build shared library.'
@@ -44,8 +44,6 @@ class Mpv < Formula
     depends_on 'vapoursynth' => :optional
   end
 
-  depends_on 'python3' if build.with? 'vapoursynth'
-
   WAF_VERSION = "waf-1.8.12".freeze
   WAF_SHA256    = "01bf2beab2106d1558800c8709bc2c8e496d3da4a2ca343fe091f22fca60c98b".freeze
 
@@ -63,16 +61,19 @@ class Mpv < Formula
     bundle_caveats if build.with? 'bundle'
   end
 
+  def python3_version
+    Language::Python.major_minor_version Formula['python3'].bin/'python3'
+  end
+
   def install
-    ENV.prepend_create_path 'PYTHONPATH', libexec/'lib/python2.7/site-packages'
+    ENV.prepend_create_path 'PYTHONPATH', libexec/"lib/python#{python3_version}/site-packages"
     ENV.prepend_create_path 'PATH', libexec/'bin'
     ENV.append 'LC_ALL', 'en_US.UTF-8'
-    resource('docutils').stage { system "python", "setup.py", "install", "--prefix=#{libexec}" }
+    resource('docutils').stage { system "python3", "setup.py", "install", "--prefix=#{libexec}" }
     bin.env_script_all_files(libexec/'bin', :PYTHONPATH => ENV['PYTHONPATH'])
 
     if build.with? 'vapoursynth'
-      pyver = Language::Python.major_minor_version Formula['python3'].bin/'python3'
-      ENV.append_path 'PKG_CONFIG_PATH', Formula['python3'].frameworks/'Python.framework/Versions'/pyver/'lib/pkgconfig'
+      ENV.append_path 'PKG_CONFIG_PATH', Formula['python3'].frameworks/'Python.framework/Versions'/python3_version/'lib/pkgconfig'
     end
 
     args = [ "--prefix=#{prefix}" ]
@@ -81,12 +82,12 @@ class Mpv < Formula
     args << "--enable-zsh-comp" if build.with? "zsh-comp"
 
     buildpath.install resource('waf').files(WAF_VERSION => "waf")
-    system "python", "waf", "configure", *args
-    system "python", "waf", "install"
+    system "python3", "waf", "configure", *args
+    system "python3", "waf", "install"
 
     if build.with? 'bundle'
       ohai "creating a OS X Application bundle"
-      system "python", "TOOLS/osxbundle.py", "build/mpv"
+      system "python3", "TOOLS/osxbundle.py", "build/mpv"
       prefix.install "build/mpv.app"
     end
   end
