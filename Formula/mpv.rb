@@ -28,7 +28,6 @@ class Mpv < Formula
   depends_on 'jpeg'        => :recommended
 
   depends_on 'libcaca'     => :optional
-  depends_on 'libbs2b'     => :optional
   depends_on 'libdvdread'  => :optional
   depends_on 'libdvdnav'   => :optional
   depends_on 'little-cms2' => :recommended
