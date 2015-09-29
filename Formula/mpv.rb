@@ -65,7 +65,7 @@ class Mpv < Formula
   end
 
   def install
-    ENV.prepend_create_path 'PYTHONPATH', libexec/"lib/python#{python3_version}/site-packages"
+    ENV['PYTHONPATH'] = libexec/"lib/python#{python3_version}/site-packages"
     ENV.prepend_create_path 'PATH', libexec/'bin'
     ENV.append 'LC_ALL', 'en_US.UTF-8'
     resource('docutils').stage { system "python3", "setup.py", "install", "--prefix=#{libexec}" }
