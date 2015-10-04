@@ -18,10 +18,13 @@ To update the tapped formulae from this repository use:
 
     brew update
 
+**NOTE**: Compilation on OS X 10.7 is currently broken. 10.8 and later should
+be fine.
+
 Available formulas
 ------------------
 
- *  mpv: builds mpv stable releases or git HEAD
- *  vapoursynth: builds vapoursynth with python3 support
- *  f3kdb: builds the flash3kyuu deband vapoursynth filter
- *  mvtools: builds the mvtools vapoursynth filter
+ *  mpv: mpv stable releases or git HEAD
+ *  vapoursynth: vapoursynth with python3 support
+ *  f3kdb: flash3kyuu deband vapoursynth filter
+ *  mvtools: mvtools vapoursynth filter
