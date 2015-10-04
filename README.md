@@ -22,7 +22,6 @@ Available formulas
 ------------------
 
  *  mpv: builds mpv stable releases or git HEAD
- *  libass-git: builds libass from the Git repository (instead of using releases)
  *  vapoursynth: builds vapoursynth with python3 support
  *  f3kdb: builds the flash3kyuu deband vapoursynth filter
  *  mvtools: builds the mvtools vapoursynth filter

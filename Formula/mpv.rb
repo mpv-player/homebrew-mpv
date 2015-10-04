@@ -10,38 +10,27 @@ class Mpv < Formula
   depends_on 'pkg-config' => :build
   depends_on :python3
 
-  option 'with-official-libass', 'Use official version of libass'
   option 'with-libmpv',          'Build shared library.'
   option 'without-optimization', 'Disable compiler optimization.'
   option 'without-bundle',       'Disable compilation of a Mac OS X Application bundle.'
   option 'without-zsh-comp',     'Install without zsh completion'
 
-  if build.with? 'official-libass'
-    depends_on 'libass' => 'with-harfbuzz'
-  else
-    depends_on 'mpv-player/mpv/libass-git'
-  end
-
+  depends_on 'libass'
   depends_on 'ffmpeg'
 
   depends_on 'mpg123'      => :recommended
   depends_on 'jpeg'        => :recommended
+  depends_on 'little-cms2' => :recommended
+  depends_on 'lua'         => :recommended
+  depends_on 'youtube-dl'  => :recommended
 
   depends_on 'libcaca'     => :optional
   depends_on 'libdvdread'  => :optional
   depends_on 'libdvdnav'   => :optional
-  depends_on 'little-cms2' => :recommended
-  depends_on 'lua'         => :recommended
-  depends_on 'youtube-dl'  => :recommended
   depends_on 'libbluray'   => :optional
   depends_on 'libaacs'     => :optional
+  depends_on 'vapoursynth' => :optional
   depends_on :x11          => :optional
-
-  if build.with? 'official-libass'
-    depends_on 'vapoursynth' => [:optional, 'with-official-libass']
-  else
-    depends_on 'vapoursynth' => :optional
-  end
 
   WAF_VERSION = "waf-1.8.12".freeze
   WAF_SHA256    = "01bf2beab2106d1558800c8709bc2c8e496d3da4a2ca343fe091f22fca60c98b".freeze
