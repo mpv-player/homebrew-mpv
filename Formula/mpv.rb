@@ -49,19 +49,15 @@ class Mpv < Formula
     bundle_caveats if build.with? 'bundle'
   end
 
-  def python3_version
-    Language::Python.major_minor_version Formula['python3'].bin/'python3'
-  end
-
   def install
-    ENV['PYTHONPATH'] = libexec/"lib/python#{python3_version}/site-packages"
+    ENV['PYTHONPATH'] = python3_site_packages
     ENV.prepend_create_path 'PATH', libexec/'bin'
     ENV.append 'LC_ALL', 'en_US.UTF-8'
     resource('docutils').stage { system "python3", "setup.py", "install", "--prefix=#{libexec}" }
     bin.env_script_all_files(libexec/'bin', :PYTHONPATH => ENV['PYTHONPATH'])
 
     if build.with? 'vapoursynth'
-      ENV.append_path 'PKG_CONFIG_PATH', Formula['python3'].frameworks/'Python.framework/Versions'/python3_version/'lib/pkgconfig'
+      ENV.append_path 'PKG_CONFIG_PATH', python3_pkg_config_path
     end
 
     args = [ "--prefix=#{prefix}" ]
@@ -81,6 +77,19 @@ class Mpv < Formula
   end
 
   private
+  def python3_site_packages
+    libexec/"lib/python#{python3_version}/site-packages"
+  end
+
+  def python3_pkg_config_path
+    Formula['python3'].frameworks/'Python.framework/Versions'/python3_version/'python3/lib/pkgconfig'
+  end
+
+  def python3_version
+    Language::Python.major_minor_version('python3')
+  end
+
+
   def bundle_caveats; <<-EOS.undent
     mpv.app installed to:
       #{prefix}
