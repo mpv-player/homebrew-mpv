@@ -26,6 +26,8 @@ class Mpv < Formula
   depends_on "libbluray"   => :optional
   depends_on "libaacs"     => :optional
 
+  depends_on :macos        => :mountain_lion
+
   WAF_VERSION = "waf-1.8.12"
   WAF_SHA256  = "01bf2beab2106d1558800c8709bc2c8e496d3da4a2ca343fe091f22fca60c98b"
 
