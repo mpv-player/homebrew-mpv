@@ -25,3 +25,6 @@ Available formulas
 ------------------
 
  *  mpv: mpv stable releases or git HEAD
+ *  vapoursynth: vapoursynth with python3 support
+ *  f3kdb: flash3kyuu deband vapoursynth filter
+ *  mvtools: mvtools vapoursynth filter
