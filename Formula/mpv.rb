@@ -10,6 +10,7 @@ class Mpv < Formula
   depends_on :python3
 
   option "with-libmpv",      "Build shared library."
+  option "with-gpl3",        "Build the LGPLv3 code (required for nnedi3)"
   option "without-bundle",   "Disable compilation of the .app bundle."
   option "without-zsh-comp", "Install without zsh completion"
 
@@ -57,6 +58,7 @@ class Mpv < Formula
     args = ["--prefix=#{prefix}"]
     args << "--enable-libmpv-shared" if build.with? "libmpv"
     args << "--enable-zsh-comp" if build.with? "zsh-comp"
+    args << "--enable-gpl3" if build.with? "gpl3"
 
     buildpath.install resource("waf").files(WAF_VERSION => "waf")
     system "python3", "waf", "configure", *args
