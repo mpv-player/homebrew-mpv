@@ -54,9 +54,8 @@ class Mpv < Formula
       ENV.append_path "PKG_CONFIG_PATH", python3_pkg_config_path
     end
 
-    args = ["--prefix=#{prefix}",
-            "--enable-gpl3"
-           ]
+    args = ["--prefix=#{prefix}"]
+    args << "--enable-gpl3" if build.head?
     args << "--enable-libmpv-shared" if build.with? "libmpv"
     args << "--enable-zsh-comp" if build.with? "zsh-comp"
 
