@@ -2,7 +2,7 @@ require "formula"
 
 class Zimg < Formula
   url "https://github.com/sekrit-twc/zimg/archive/release-2.0.2.tar.gz"
-  sha265 "b9c7bac9e6ad53dfa94215c28440167d72d41109df10278673789f8e531f2142"
+  sha1 "3d44f026fa294e0d0dab6d85d6ef515d172ab26c"
   homepage "https://github.com/sekrit-twc/zimg"
 
   depends_on "pkg-config" => :build
