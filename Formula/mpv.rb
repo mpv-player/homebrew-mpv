@@ -44,15 +44,7 @@ class Mpv < Formula
   end
 
   def install
-    ENV["PYTHONPATH"] = python3_site_packages
-    ENV.prepend_create_path "PATH", libexec/"bin"
-    resource("docutils").stage { install_docutils }
-    bin.env_script_all_files(libexec/"bin", :PYTHONPATH => ENV["PYTHONPATH"])
-
-    if build.with? "vapoursynth"
-      ENV.append_path "PKG_CONFIG_PATH", python3_pkg_config_path
-    end
-
+    add_python_paths
     args = ["--prefix=#{prefix}", "--enable-gpl3"]
     args << "--enable-libmpv-shared" if build.with? "libmpv"
     args << "--enable-zsh-comp" if build.with? "zsh-comp"
@@ -69,7 +61,18 @@ class Mpv < Formula
 
   private
 
-  def install_docutils
+  def add_python_paths
+    ENV["PYTHONPATH"] = python3_site_packages
+    ENV.prepend_create_path "PATH", libexec/"bin"
+    resource("docutils").stage { install_python_package }
+    bin.env_script_all_files(libexec/"bin", :PYTHONPATH => ENV["PYTHONPATH"])
+
+    if build.with? "vapoursynth"
+      ENV.append_path "PKG_CONFIG_PATH", python3_pkg_config_path
+    end
+  end
+
+  def install_python_package
     system "python3", "setup.py", "install", "--prefix=#{libexec}"
   end
 
