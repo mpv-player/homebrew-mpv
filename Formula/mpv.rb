@@ -62,6 +62,10 @@ class Mpv < Formula
   private
 
   def add_python_paths
+    # LANG is unset by default on osx and causes issues when calling getlocale
+    # or getdefaultlocale in Python. Let's overwrite any user settings and use
+    # the default c/posix locale
+    ENV["LC_ALL"] = "C"
     ENV["PYTHONPATH"] = python3_site_packages
     ENV.prepend_create_path "PATH", libexec/"bin"
     resource("docutils").stage { install_python_package }
