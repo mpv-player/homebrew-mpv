@@ -5,6 +5,8 @@ class Vapoursynth < Formula
   sha256 "5a2e37f3a9a5dc60f55a301b222df75a580ccf319b099a3e421e2334ef8cbde6"
   head "https://github.com/vapoursynth/vapoursynth.git"
 
+  patch :DATA
+
   needs :cxx11
   depends_on "pkg-config" => :build
   depends_on "autoconf" => :build
@@ -28,6 +30,7 @@ class Vapoursynth < Formula
     ENV.prepend_create_path "PATH", libexec/"bin"
     python_install("cython")
     bin.env_script_all_files(libexec/"bin", :PYTHONPATH => ENV["PYTHONPATH"])
+
     system "./autogen.sh"
     system "./configure", "--prefix=#{prefix}"
     system "make", "install"
@@ -50,3 +53,20 @@ class Vapoursynth < Formula
     end
   end
 end
+
+__END__
+diff --git a/Makefile.am b/Makefile.am
+index 88287a0..dfcaace 100644
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -98,8 +98,8 @@ pyexec_LTLIBRARIES = vapoursynth.la
+
+ vapoursynth_la_SOURCES = src/cython/vapoursynth.pyx
+ vapoursynth_la_CPPFLAGS = $(PYTHON3_CFLAGS)
+-vapoursynth_la_LIBADD = $(PYTHON3_LIBS) libvapoursynth.la
+-vapoursynth_la_LDFLAGS = -no-undefined -avoid-version -module
++vapoursynth_la_LIBADD = libvapoursynth.la
++vapoursynth_la_LDFLAGS = -undefined dynamic_lookup -avoid-version -module
+ vapoursynth_la_LIBTOOLFLAGS = $(commonlibtoolflags)
+
+ MOSTLYCLEANFILES = src/cython/vapoursynth.c \
