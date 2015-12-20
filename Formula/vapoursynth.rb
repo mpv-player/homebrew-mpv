@@ -36,6 +36,11 @@ class Vapoursynth < Formula
     system "make", "install"
   end
 
+  test do
+    system bin/"vspipe", "--version"
+    system "python", "-c", "import vapoursynth"
+  end
+
   private
 
   def site_packages
