@@ -24,6 +24,8 @@ be fine.
 Available formulas
 ------------------
 
- *  mpv: mpv stable releases or git HEAD
- *  vapoursynth: vapoursynth with python3 support
- *  mvtools: mvtools vapoursynth filter
+ *  **mpv**: a free, open source, and cross-platform media player
+ *  **vapoursynth**: a video processing framework with simplicity in mind
+ *  **mvtools**: vapoursynth filter for estimation and compensation of objects
+    motion in video clips
+ *  **zimg**: scaling, colorspace conversion, and dithering library
