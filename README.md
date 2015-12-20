@@ -28,3 +28,9 @@ Available formulas
  *  **vapoursynth**: video processing framework with simplicity in mind
  *  **mvtools**: filters for motion estimation and compensation
  *  **zimg**: scaling, colorspace conversion, and dithering library
+
+Contribute
+----------
+
+Send patches through PR. Before sending a PR make sure your change doesn't
+cause any auditing issue with `brew audit --strict --online Formula/*`.
