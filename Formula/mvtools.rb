@@ -1,11 +1,9 @@
-require "formula"
-
 class Mvtools < Formula
   desc "Filters for motion estimation and compensation"
-  url "https://github.com/dubhater/vapoursynth-mvtools/archive/v9.tar.gz"
   homepage "https://github.com/dubhater/vapoursynth-mvtools"
-  head "https://github.com/dubhater/vapoursynth-mvtools.git"
+  url "https://github.com/dubhater/vapoursynth-mvtools/archive/v9.tar.gz"
   sha256 "e417764cddcc2b24ee5a91c1136e95237ce1424f5d7f49ceb62ff092db18d907"
+  head "https://github.com/dubhater/vapoursynth-mvtools.git"
 
   depends_on "pkg-config" => :build
   depends_on "yasm" => :build
@@ -18,6 +16,6 @@ class Mvtools < Formula
   def install
     system "./autogen.sh"
     system "./configure", "--prefix=#{prefix}"
-    system "make install"
+    system "make", "install"
   end
 end

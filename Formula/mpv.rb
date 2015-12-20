@@ -1,18 +1,16 @@
-require "formula"
-
 class Mpv < Formula
-  desc "A free, open source, and cross-platform media player"
+  desc "Free, open source, and cross-platform media player"
+  homepage "https://mpv.io"
   url "https://github.com/mpv-player/mpv/archive/v0.14.0.tar.gz"
   sha256 "042937f483603f0c3d1dec11e8f0045e8c27f19eee46ea64d81a3cdf01e51233"
   head "https://github.com/mpv-player/mpv.git"
-  homepage "https://github.com/mpv-player/mpv"
-
-  depends_on "pkg-config" => :build
-  depends_on :python3
 
   option "with-libmpv",      "Build shared library."
   option "without-bundle",   "Disable compilation of the .app bundle."
   option "without-zsh-comp", "Install without zsh completion"
+
+  depends_on "pkg-config" => :build
+  depends_on :python3
 
   depends_on "libass"
   depends_on "ffmpeg"
@@ -67,6 +65,10 @@ class Mpv < Formula
       system "python3", "TOOLS/osxbundle.py", "build/mpv"
       prefix.install "build/mpv.app"
     end
+  end
+
+  test do
+    system "#{bin}/mpv", "-ao", "null", "/System/Library/Sounds/Glass.aiff"
   end
 
   private

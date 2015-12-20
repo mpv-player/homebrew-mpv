@@ -1,10 +1,8 @@
-require "formula"
-
 class Vapoursynth < Formula
   desc "Video processing framework with simplicity in mind"
-  url "https://github.com/vapoursynth/vapoursynth/archive/R29.tar.gz"
-  sha1 "b756a044f7843c0bfbe412a4c533864cdcf94602"
   homepage "http://www.vapoursynth.com"
+  url "https://github.com/vapoursynth/vapoursynth/archive/R29.tar.gz"
+  sha256 "5a2e37f3a9a5dc60f55a301b222df75a580ccf319b099a3e421e2334ef8cbde6"
   head "https://github.com/vapoursynth/vapoursynth.git"
 
   needs :cxx11
@@ -21,8 +19,7 @@ class Vapoursynth < Formula
 
   resource "cython" do
     url "https://pypi.python.org/packages/source/C/Cython/Cython-0.21.2.tar.gz"
-    md5 "d21adb870c75680dc857cd05d41046a4"
-    sha1 "c3fe3dd5693aa09719ee4a3bcec898068c82592d"
+    sha256 "b01af23102143515e6138a4d5e185c2cfa588e0df61c0827de4257bac3393679"
   end
 
   def install
@@ -33,7 +30,7 @@ class Vapoursynth < Formula
     bin.env_script_all_files(libexec/"bin", :PYTHONPATH => ENV["PYTHONPATH"])
     system "./autogen.sh"
     system "./configure", "--prefix=#{prefix}"
-    system "make install"
+    system "make", "install"
   end
 
   private
