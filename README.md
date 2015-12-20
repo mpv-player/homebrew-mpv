@@ -26,6 +26,5 @@ Available formulas
 
  *  **mpv**: a free, open source, and cross-platform media player
  *  **vapoursynth**: a video processing framework with simplicity in mind
- *  **mvtools**: vapoursynth filter for estimation and compensation of objects
-    motion in video clips
+ *  **mvtools**: a set of filters for motion estimation and compensation
  *  **zimg**: scaling, colorspace conversion, and dithering library
