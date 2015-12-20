@@ -5,6 +5,7 @@ class Vapoursynth < Formula
   sha256 "5a2e37f3a9a5dc60f55a301b222df75a580ccf319b099a3e421e2334ef8cbde6"
   head "https://github.com/vapoursynth/vapoursynth.git"
 
+  # issue with upstream: https://github.com/vapoursynth/vapoursynth/issues/201
   patch :DATA
 
   needs :cxx11
