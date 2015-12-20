@@ -44,7 +44,16 @@ class Mpv < Formula
   end
 
   def install
-    add_python_paths
+    # LANG is unset by default on osx and causes issues when calling getlocale
+    # or getdefaultlocale in Python. Let's overwrite any user settings and use
+    # the default c/posix locale
+    ENV["LC_ALL"] = "C"
+    ENV.prepend_create_path "PKG_CONFIG_PATH", python_pkg_config_path
+    ENV.prepend_create_path "PYTHONPATH", site_packages
+    ENV.prepend_create_path "PATH", libexec/"bin"
+    python_install("docutils")
+    bin.env_script_all_files(libexec/"bin", :PYTHONPATH => ENV["PYTHONPATH"])
+
     args = ["--prefix=#{prefix}", "--enable-gpl3"]
     args << "--enable-libmpv-shared" if build.with? "libmpv"
     args << "--enable-zsh-comp" if build.with? "zsh-comp"
@@ -61,34 +70,18 @@ class Mpv < Formula
 
   private
 
-  def add_python_paths
-    # LANG is unset by default on osx and causes issues when calling getlocale
-    # or getdefaultlocale in Python. Let's overwrite any user settings and use
-    # the default c/posix locale
-    ENV["LC_ALL"] = "C"
-    ENV["PYTHONPATH"] = python3_site_packages
-    ENV.prepend_create_path "PATH", libexec/"bin"
-    resource("docutils").stage { install_python_package }
-    bin.env_script_all_files(libexec/"bin", :PYTHONPATH => ENV["PYTHONPATH"])
+  def site_packages
+    python_version = Language::Python.major_minor_version("python3")
+    libexec/"lib/python#{python_version}/site-packages"
+  end
 
-    if build.with? "vapoursynth"
-      ENV.append_path "PKG_CONFIG_PATH", python3_pkg_config_path
+  def python_pkg_config_path
+    Pathname.new(`python3-config --prefix`.chomp)/"lib/pkgconfig"
+  end
+
+  def python_install(package)
+    resource(package).stage do
+      system "python3", *Language::Python.setup_install_args(libexec)
     end
-  end
-
-  def install_python_package
-    system "python3", "setup.py", "install", "--prefix=#{libexec}"
-  end
-
-  def python3_site_packages
-    libexec/"lib/python#{python3_version}/site-packages"
-  end
-
-  def python3_pkg_config_path
-    Formula["python3"].frameworks/"Python.framework/Versions"/python3_version/"python3/lib/pkgconfig"
-  end
-
-  def python3_version
-    Language::Python.major_minor_version("python3")
   end
 end
