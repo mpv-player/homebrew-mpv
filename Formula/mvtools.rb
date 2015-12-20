@@ -1,6 +1,7 @@
 require "formula"
 
 class Mvtools < Formula
+  desc "Filters for motion estimation and compensation"
   url "https://github.com/dubhater/vapoursynth-mvtools/archive/v9.tar.gz"
   homepage "https://github.com/dubhater/vapoursynth-mvtools"
   head "https://github.com/dubhater/vapoursynth-mvtools.git"

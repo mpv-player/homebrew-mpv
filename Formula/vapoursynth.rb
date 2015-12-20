@@ -1,6 +1,7 @@
 require "formula"
 
 class Vapoursynth < Formula
+  desc "Video processing framework with simplicity in mind"
   url "https://github.com/vapoursynth/vapoursynth/archive/R29.tar.gz"
   sha1 "b756a044f7843c0bfbe412a4c533864cdcf94602"
   homepage "http://www.vapoursynth.com"

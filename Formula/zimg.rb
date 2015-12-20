@@ -1,6 +1,7 @@
 require "formula"
 
 class Zimg < Formula
+  desc "Scaling, colorspace conversion, and dithering library"
   url "https://github.com/sekrit-twc/zimg/archive/release-2.0.2.tar.gz"
   sha1 "3d44f026fa294e0d0dab6d85d6ef515d172ab26c"
   homepage "https://github.com/sekrit-twc/zimg"

@@ -1,6 +1,7 @@
 require "formula"
 
 class Mpv < Formula
+  desc "A free, open source, and cross-platform media player"
   url "https://github.com/mpv-player/mpv/archive/v0.14.0.tar.gz"
   sha256 "042937f483603f0c3d1dec11e8f0045e8c27f19eee46ea64d81a3cdf01e51233"
   head "https://github.com/mpv-player/mpv.git"
