@@ -38,5 +38,3 @@ class Mvtools < Formula
     system "python3", "-c", script
   end
 end
-
-__END__
