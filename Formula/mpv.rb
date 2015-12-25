@@ -5,9 +5,8 @@ class Mpv < Formula
   sha256 "042937f483603f0c3d1dec11e8f0045e8c27f19eee46ea64d81a3cdf01e51233"
   head "https://github.com/mpv-player/mpv.git"
 
-  option "with-libmpv",      "Build shared library."
-  option "without-bundle",   "Disable compilation of the .app bundle."
-  option "without-zsh-comp", "Install without zsh completion"
+  option "with-shared", "Build libmpv shared library."
+  option "with-bundle", "Enable compilation of the .app bundle."
 
   depends_on "pkg-config" => :build
   depends_on :python3
@@ -53,9 +52,8 @@ class Mpv < Formula
     python_install("docutils")
     bin.env_script_all_files(libexec/"bin", :PYTHONPATH => ENV["PYTHONPATH"])
 
-    args = ["--prefix=#{prefix}", "--enable-gpl3"]
+    args = ["--prefix=#{prefix}", "--enable-gpl3", "--enable-zsh-comp"]
     args << "--enable-libmpv-shared" if build.with? "libmpv"
-    args << "--enable-zsh-comp" if build.with? "zsh-comp"
 
     buildpath.install resource("waf").files(WAF_VERSION => "waf")
     system "python3", "waf", "configure", *args
