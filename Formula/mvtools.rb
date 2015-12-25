@@ -18,4 +18,13 @@ class Mvtools < Formula
     system "./configure", "--prefix=#{prefix}"
     system "make", "install"
   end
+
+  def caveats
+    <<-EOS.undent
+      MVTools will not be autoloaded in your VapourSynth scripts. To use it
+      use the following code in your scripts:
+
+        core.std.LoadPlugin(path="#{HOMEBREW_PREFIX}/lib/libmvtools.dylib")
+    EOS
+  end
 end
