@@ -14,4 +14,21 @@ class Zimg < Formula
     system "./configure", "--prefix=#{prefix}"
     system "make", "install"
   end
+
+  test do
+    (testpath/"test.c").write <<-EOS.undent
+      #include <assert.h>
+      #include <zimg.h>
+
+      int main()
+      {
+        zimg_image_format format;
+        zimg_image_format_default(&format, ZIMG_API_VERSION);
+        assert(ZIMG_MATRIX_UNSPECIFIED == format.matrix_coefficients);
+        return 0;
+      }
+    EOS
+    system ENV.cc, "test.c", "-L#{lib}", "-lzimg", "-o", "test"
+    system "./test"
+  end
 end
