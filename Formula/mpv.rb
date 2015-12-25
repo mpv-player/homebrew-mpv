@@ -49,7 +49,7 @@ class Mpv < Formula
     ENV.prepend_create_path "PKG_CONFIG_PATH", python_pkg_config_path
     ENV.prepend_create_path "PYTHONPATH", site_packages
     ENV.prepend_create_path "PATH", libexec/"bin"
-    python_install("docutils")
+    python_install_package("docutils")
     bin.env_script_all_files(libexec/"bin", :PYTHONPATH => ENV["PYTHONPATH"])
 
     args = ["--prefix=#{prefix}", "--enable-gpl3", "--enable-zsh-comp"]
@@ -80,7 +80,7 @@ class Mpv < Formula
     Pathname.new(`python3-config --prefix`.chomp)/"lib/pkgconfig"
   end
 
-  def python_install(package)
+  def python_install_package(package)
     resource(package).stage do
       system "python3", *Language::Python.setup_install_args(libexec)
     end
