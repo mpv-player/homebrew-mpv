@@ -27,4 +27,16 @@ class Mvtools < Formula
         core.std.LoadPlugin(path="#{HOMEBREW_PREFIX}/lib/libmvtools.dylib")
     EOS
   end
+
+  test do
+    script = <<-PYTHON.undent.split("\n").join(";")
+      import vapoursynth as vs
+      core = vs.get_core()
+      core.std.LoadPlugin(path="#{HOMEBREW_PREFIX}/lib/libmvtools.dylib")
+    PYTHON
+
+    system "python3", "-c", script
+  end
 end
+
+__END__
