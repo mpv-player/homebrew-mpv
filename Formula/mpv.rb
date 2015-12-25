@@ -66,7 +66,7 @@ class Mpv < Formula
   end
 
   test do
-    system "#{bin}/mpv", "--ao=null", "/System/Library/Sounds/Glass.aiff"
+    system "#{bin}/mpv", "--ao=null", test_fixtures("test.wav")
   end
 
   private
