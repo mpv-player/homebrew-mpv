@@ -29,7 +29,7 @@ class Mpv < Formula
 
   depends_on :macos => :mountain_lion
 
-  WAF_VERSION = "waf-1.8.12"
+  WAF_VERSION = "waf-1.8.12".freeze
 
   resource "waf" do
     url "https://waf.io/#{WAF_VERSION}"
