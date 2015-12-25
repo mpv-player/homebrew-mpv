@@ -43,9 +43,10 @@ class Mpv < Formula
 
   def install
     # LANG is unset by default on osx and causes issues when calling getlocale
-    # or getdefaultlocale in Python. Let's overwrite any user settings and use
-    # the default c/posix locale
+    # or getdefaultlocale in docutils. Force the default c/posix locale since
+    # that's good enough for building the manpage.
     ENV["LC_ALL"] = "C"
+
     ENV.prepend_create_path "PKG_CONFIG_PATH", python_pkg_config_path
     ENV.prepend_create_path "PYTHONPATH", site_packages
     ENV.prepend_create_path "PATH", libexec/"bin"
