@@ -39,7 +39,7 @@ class Vapoursynth < Formula
 
   test do
     system bin/"vspipe", "--version"
-    system "python", "-c", "import vapoursynth"
+    system "python3", "-c", "import vapoursynth"
   end
 
   private
