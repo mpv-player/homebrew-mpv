@@ -14,20 +14,20 @@ class Mpv < Formula
   depends_on "libass"
   depends_on "ffmpeg"
 
-  depends_on "jpeg"        => :recommended
+  depends_on "jpeg" => :recommended
   depends_on "little-cms2" => :recommended
-  depends_on "lua"         => :recommended
-  depends_on "youtube-dl"  => :recommended
+  depends_on "lua" => :recommended
+  depends_on "youtube-dl" => :recommended
 
-  depends_on "libcaca"     => :optional
-  depends_on "libdvdread"  => :optional
-  depends_on "libdvdnav"   => :optional
-  depends_on "libbluray"   => :optional
-  depends_on "libaacs"     => :optional
+  depends_on "libcaca" => :optional
+  depends_on "libdvdread" => :optional
+  depends_on "libdvdnav" => :optional
+  depends_on "libbluray" => :optional
+  depends_on "libaacs" => :optional
   depends_on "vapoursynth" => :optional
-  depends_on :x11          => :optional
+  depends_on :x11 => :optional
 
-  depends_on :macos        => :mountain_lion
+  depends_on :macos => :mountain_lion
 
   WAF_VERSION = "waf-1.8.12"
 
